@@ -1,0 +1,57 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+
+.collapse-dropdown {
+    margin-right: auto;
+    flex-direction: row;
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: none;
+    align-items: center;
+    @include media-breakpoint-down(md) {
+        display: flex;
+    }
+    a {
+        padding: .5rem 1rem;
+        &::after {
+            display: inline-flex;
+            align-items: center;
+            content: "";
+            margin-left: .255em;
+            vertical-align: .255em;
+            border-top: .3em solid;
+            border-left: .3em solid transparent;
+            border-right: .3em solid transparent;
+            border-bottom: 0;
+        }
+    }
+}
+
+.collapse-menue {
+    display: flex;
+    flex-direction: row;
+    @include media-breakpoint-down(md) {
+        position: absolute;
+        display: none;
+        top: 100%;
+        padding: .5rem .5rem;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: .25rem;
+        z-index: 1000;
+        &.show {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    .collapse-item {
+        margin: 0.5rem 1rem;
+        text-align: center;
+        white-space: nowrap;
+        display: block;
+    }
+}

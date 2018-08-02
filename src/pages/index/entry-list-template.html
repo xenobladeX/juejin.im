@@ -1,0 +1,35 @@
+<ul class="entry-list">
+    {^{for d}}
+    <li class="item" id="{{:objectId}}">
+        <div class="entry">
+            <a href="#" class="entry-link">
+                <div class="content-box">
+                    <div class="info-box">
+                        <div class="title-row">
+                            <object>
+                                <a href="{{:originalUrl}}" target="_blank">{{:title}}</a>
+                            </object>
+                        </div>
+                        <div class="meta-row">
+                            <ul class="meta-list">
+                                <li class="item">
+                                    <span class="category-title {{:category.title}}">{{:category.name}}</span>
+                                </li>
+                                <li class="item username">
+                                    <object data-toggle="tooltip" data-target=".user-tooltip">
+                                        <a href="">{{:user.username}}</a>
+                                    </object>
+                                </li>
+                                <li class="item">3月前</li>
+                                <li class="item">{{:viewsCount}} 次阅读</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="thumb" style="background-image: url({{:screenshot}});
+                    background-size: cover;"></div>
+                </div>
+            </a>
+        </div>
+    </li>
+    {{/for}}
+</ul>

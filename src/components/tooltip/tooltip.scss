@@ -1,0 +1,95 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+$tooltip-arrow-size: .5rem;
+.tooltip {
+    position: absolute;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .25);
+    padding: 10px;
+    text-align: center;
+    .tooltip-arrow {
+        position: absolute;
+        display: block;
+        width: 1rem;
+        height: $tooltip-arrow-size;
+        margin: 0 .3rem;
+        border-color: rgba(0, 0, 0, .25);
+        &::after,
+        &::before {
+            position: absolute;
+            display: block;
+            content: "";
+            border-color: transparent;
+            border-style: solid;
+        }
+    }
+    &[x-placement^="top"] {
+        margin-bottom: $tooltip-arrow-size;
+        .tooltip-arrow {
+            bottom: calc((#{$tooltip-arrow-size} + 1px) * -1);
+            &::before {
+                bottom: 0;
+                border-top-color: rgba(0, 0, 0, .1);
+                border-width: $tooltip-arrow-size $tooltip-arrow-size 0;
+            }
+            &::after {
+                bottom: 1px;
+                border-top-color: #fff;
+                border-width: $tooltip-arrow-size $tooltip-arrow-size 0;
+            }
+        }
+    }
+    &[x-placement^="bottom"] {
+        margin-top: $tooltip-arrow-size;
+        .tooltip-arrow {
+            top: calc((#{$tooltip-arrow-size} + 1px) * -1);
+            &::before {
+                top: 0;
+                border-bottom-color: rgba(0, 0, 0, .1);
+                border-width: 0 $tooltip-arrow-size $tooltip-arrow-size $tooltip-arrow-size;
+            }
+            &::after {
+                top: 1px;
+                border-bottom-color: #fff;
+                border-width: 0 $tooltip-arrow-size $tooltip-arrow-size $tooltip-arrow-size;
+            }
+        }
+    }
+    &[x-placement^="left"] {
+        margin-right: $tooltip-arrow-size;
+        .tooltip-arrow {
+            right: calc((#{$tooltip-arrow-size} + 1px) * -1);
+            &::before {
+                right: 0;
+                border-left-color: rgba(0, 0, 0, .1);
+                border-width: $tooltip-arrow-size 0 $tooltip-arrow-size $tooltip-arrow-size;
+            }
+            &::after {
+                right: 1px;
+                border-left-color: #fff;
+                border-width: $tooltip-arrow-size 0 $tooltip-arrow-size $tooltip-arrow-size;
+            }
+        }
+    }
+    &[x-placement^="right"] {
+        margin-left: $tooltip-arrow-size;
+        .tooltip-arrow {
+            left: calc((#{$tooltip-arrow-size} + 1px) * -1);
+            &::before {
+                left: 0;
+                border-right-color: rgba(0, 0, 0, .1);
+                border-width: $tooltip-arrow-size $tooltip-arrow-size $tooltip-arrow-size 0;
+            }
+            &::after {
+                left: 1px;
+                border-right-color: #fff;
+                border-width: $tooltip-arrow-size $tooltip-arrow-size $tooltip-arrow-size 0;
+            }
+        }
+    }
+    .tooltip-inner {
+        cursor: default;
+    }
+}
