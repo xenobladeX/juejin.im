@@ -29,18 +29,23 @@ $(document).ready(function () {
 
     var generateSuid = () => {
         var deferred = $.Deferred();
-        $.getJSON('/v1/gen_suid?src=juejin.im').then(gen_suid_response => {
-            if (gen_suid_response.m !== 'ok') {
-                deferred.reject(new Error('generate suid response error: ' + gen_suid_response.m));
-            } else {
-                suid = gen_suid_response.d;
-                store.set('suid', suid);
-                deferred.resolve(suid);
-            }
-        }, err => {
-            console.warn('request generate suid failed: ' + err);
-            deferred.reject(err);
-        });
+        suid = store.get('suid');
+        if (suid) {
+            deferred.resolve(suid);
+        } else {
+            $.getJSON('/v1/gen_suid?src=juejin.im').then(gen_suid_response => {
+                if (gen_suid_response.m !== 'ok') {
+                    deferred.reject(new Error('generate suid response error: ' + gen_suid_response.m));
+                } else {
+                    suid = gen_suid_response.d;
+                    store.set('suid', suid);
+                    deferred.resolve(suid);
+                }
+            }, err => {
+                console.warn('request generate suid failed: ' + err);
+                deferred.reject(err);
+            });
+        }
         return deferred;
     };
 
@@ -102,36 +107,21 @@ $(document).ready(function () {
         scrollArea: window,
         loadDownFn: function (me) {
             if (isFirstLoad) {
-                suid = store.get('suid');
-                if (!suid) {
-                    generateSuid().then(() => {
-                        return getRecommendedEntry();
-                    }).done((entryList) => {
-                        isFirstLoad = false;
-                        if (entryList.length === 0) {
-                            me.noData();
-                        } else {
-                            $.observable(recommendedData.d).insert(entryList);
-                            me.resetload();
-                        }
-                    }).fail(err => {
-                        console.warn('load recommended failed: ' + err);
+                generateSuid().then(() => {
+                    console.log(suid);
+                    return getRecommendedEntry();
+                }).done((entryList) => {
+                    isFirstLoad = false;
+                    if (entryList.length === 0) {
+                        me.noData();
+                    } else {
+                        $.observable(recommendedData.d).insert(entryList);
                         me.resetload();
-                    });
-                } else {
-                    getRecommendedEntry().done((entryList) => {
-                        isFirstLoad = false;
-                        if (entryList.length === 0) {
-                            me.noData();
-                        } else {
-                            $.observable(recommendedData.d).insert(entryList);
-                        }
-                        me.resetload();
-                    }).fail(err => {
-                        console.warn('load recommended failed: ' + err);
-                        me.resetload();
-                    });
-                }
+                    }
+                }).fail(err => {
+                    console.warn('load recommended failed: ' + err);
+                    me.resetload();
+                });
             } else {
                 getRecommendedEntry().done((newEntryList) => {
                     $.observable(recommendedData.d).insert(newEntryList);
