@@ -1,0 +1,101 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+
+
+.entry {
+    &:hover {
+        background-color: rgba(0, 0, 0, .01);
+    }
+    .entry-link {
+        .content-box {
+            display: flex;
+            align-items: center;
+            padding: .87525rem 1.5rem;
+            min-height: 4.3125rem;
+            color: #8f969c;
+            .info-box {
+                flex: 1 1 auto;
+                flex-direction: column;
+                .title-row {
+                    margin: .375rem 0 .6rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    a {
+                        color: #2e3135;
+                        font-size: 1.05rem;
+                        font-weight: 600;
+                        line-height: 1.2;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                        &:visited {
+                            color: #909090;
+                        }
+                    }
+                }
+                >.meta-row {
+                    >.meta-list {
+                        display: flex;
+                        align-items: baseline;
+                        white-space: nowrap;
+                        >.item {
+                            font-size: .75rem;
+                            &:nth-child(2),
+                            &:nth-child(3) {
+                                &::after {
+                                    content: "\B7";
+                                    margin: 0 .34em;
+                                    color: #8f969c;
+                                }
+                            }
+                            .category-title {
+                                display: inline-block;
+                                margin-right: .9rem;
+                                padding: .285rem 0;
+                                min-width: 3.375rem;
+                                text-align: center;
+                                line-height: 1;
+                                color: #fff;
+                                border-radius: 2px;
+                                &.backend {
+                                    background-color: #857dea;
+                                }
+                                &.android {
+                                    background-color: #42c67d;
+                                }
+                                &.article {
+                                    background-color: #abbb79;
+                                }
+                                &.ai {
+                                    background-color: #e8596b;
+                                }
+                                &.ios {
+                                    background-color: #ff955b;
+                                }
+                                &.freebie {
+                                    background-color: #606b9e;
+                                }
+                                &.frontend {
+                                    background-color: #56c4e1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .thumb {
+                flex: 0 0 auto;
+                width: 6.675rem;
+                height: 4.3125rem;
+                margin-left: 1.5rem;
+                background-color: #fff;
+                border-radius: 2px;
+                @include media-breakpoint-down(sm) {
+                    display: none;
+                }
+            }
+        }
+    }
+}

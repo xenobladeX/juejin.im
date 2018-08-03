@@ -1,0 +1,95 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+
+.user-tooltip {
+    padding: .99975rem .99975rem 1.37475rem;
+    font-weight: 400;
+    line-height: 1.2;
+    background-color: #fff;
+    width: 17.25rem;
+    .info-row {
+        display: flex;
+        .avatar {
+            flex: 0 0 auto;
+            margin-right: .75rem;
+            width: 3.624975rem;
+            height: 3.624975rem;
+            border-radius: 50%;
+            border: 1px solid #fff;
+            box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .15);
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            line-height: 1;
+            text-align: start;
+            .username {
+                margin-top: .249975rem;
+                font-size: 1.05rem;
+                line-height: 1.2;
+                font-weight: 500;
+                color: #333;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis
+            }
+            .position {
+                margin: 1.125rem 0 0;
+                font-size: .84rem;
+                line-height: 1.2;
+                color: #8f969c;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis
+            }
+        }
+    }
+    .meta-row {
+        align-items: flex-end;
+        display: flex;
+        margin-top: 1.125rem;
+        .meta-list {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            flex: 1 1 auto;
+            .item {
+                flex: 1 1 auto;
+                .count {
+                    font-size: .7875rem;
+                    font-weight: 600;
+                    color: #17181a;
+                }
+                .title {
+                    margin-top: .4995rem;
+                    font-size: .84375rem;
+                    color: #8f969c;
+                }
+            }
+        }
+        .follow-button {
+            flex: 0 0 auto;
+            margin: 0 0 0 .75rem;
+            padding: 0;
+            width: 4.7rem;
+            height: 1.875rem;
+            font-size: .9375rem;
+            letter-spacing: normal;
+            color: #37c701;
+            background-color: #fff;
+            border: 1px solid #37c701;
+            border-radius: 2px;
+            cursor: pointer;
+            &:hover {
+                opacity: .8;
+            }
+            &:disabled {
+                color: #ccc;
+                border-color: #ccc
+            }
+        }
+    }
+}

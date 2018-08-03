@@ -1,10 +1,15 @@
 @import 'bootstrap/bootstrap-reboot.scss';
 @import 'bootstrap/print.scss';
 
+
+// 变量
+
+$max-width: 60rem;
+
 // 通用样式
 
 html {
-    font-size: 62.5%;
+    font-size: 16px;
     color: #222;
     background-color: #f4f5f5;
 }
@@ -95,7 +100,7 @@ li {
 // 自定义页面样式
 
 body {
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.5;
     background-color: #f7f7f7;
 }
@@ -119,6 +124,17 @@ button {
     border: none;
     outline: none;
     cursor: pointer;
+}
+
+.container {
+    width: 100%;
+    max-width: $max-width;
+    margin: 0 auto;
+    position: relative;
+}
+
+main {
+
 }
 
 // 打印样式

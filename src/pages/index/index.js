@@ -1,6 +1,8 @@
 // sass
 import './index.scss';
 import '../../components/tooltip/tooltip.scss';
+import '../../../node_modules/ionicons/dist/scss/ionicons.scss';
+
 
 // template
 import user_tooltip_template from './user-tooltip-template.html';
@@ -60,13 +62,28 @@ $(document).ready(function () {
         return deferred;
     }
 
+    var getBookList = () => {
+        var deferred = $.Deferred();
+        $.getJSON('/v1/getListByLastTime?uid=&client_id=&token=&src=web&pageNum=1')
+            .then(get_booklist_response => {
+                if (get_booklist_response.m !== 'ok') {
+                    deferred.reject(new Error('get book list response error: ' + get_booklist_response.m));
+                } else {
+                    deferred.resolve(get_booklist_response.d);
+                }
+            }, err => {
+                console.warn('get book list failed: ' + err);
+                deferred.reject(err);
+            });
+        return deferred;
+    }
+
     /******************************************main */
 
     // 绑定模板
     entryListTemplate.link('#template-container', recommendedData);
     // add array observer, bind insert to user-tooltip
     $.observe(recommendedData.d, function (event, eventArg) {
-        console.log(eventArg.change);
         if (eventArg.change === 'insert') {
             $(eventArg.items).each((index, element) => {
                 const instance = new Tooltip($(`#${element.objectId} .username [data-toggle="tooltip"]`), {
@@ -81,8 +98,9 @@ $(document).ready(function () {
     // 上拉加载更多
     $('#entry-list').dropload({
         scrollArea: window,
-        loadDownFn: function(me) {
+        loadDownFn: function (me) {
             if (isFirstLoad) {
+                console.log('first load');
                 generateSuid().then(() => {
                     return getRecommendedEntry();
                 }).done((entryList) => {

@@ -1,0 +1,162 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+
+.welcom-side {
+    width: 15rem;
+    min-width: 15rem;
+    margin-left: 1.5rem;
+    @include media-breakpoint-down(md) {
+        display: none;
+    }
+    .auth-section {
+        background-color: #fff;
+        border-radius: 2px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        padding: 1rem;
+        .title,
+        .slogan {
+            margin-bottom: .375rem;
+            font-size: 0.87525rem;
+            color: #2e3135;
+        }
+        .title {
+            font-weight: 600;
+        }
+        .ticket {
+            font-size: 0.75rem;
+            color: #8f969c;
+            margin-bottom: 0.75rem;
+            .highlight {
+                margin-left: .03125rem;
+                margin-right: .03125rem;
+                color: #007fff;
+            }
+        }
+        .input-group {
+            .input-box {
+                position: relative;
+                margin-bottom: .62475rem;
+                .input {
+                    padding: .525rem .45rem;
+                    width: 100%;
+                    font-size: .87525rem;
+                    background-color: #fbfbfb;
+                    border: 1px solid #f4f4f4;
+                    border-radius: 2px;
+                    outline: none;
+                    box-sizing: border-box;
+                }
+            }
+        }
+        .submit-btn {
+            padding: .525rem 0;
+            width: 100%;
+            font-size: .87525rem;
+            &:hover {
+                background-color: #0371df;
+                color: #fff;
+            }
+        }
+        .oauth-box {
+            margin-top: 1.125rem;
+            font-size: 0.75rem;
+            line-height: 1.425rem;
+            color: #8f969c;
+            .oauth-btn {
+                margin-left: 0.9rem;
+                height: 1.425rem;
+                vertical-align: bottom;
+                cursor: pointer;
+            }
+        }
+    }
+    .tags-section {
+        background-color: #fff;
+        border-radius: 2px;
+        margin-bottom: 1.125rem;
+        overflow: hidden;
+        .header {
+            line-height: 2.8125rem;
+            padding-left: .9375rem;
+            padding-right: .9375rem;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #f6f6f6;
+            .title {
+                font-size: 0.875rem;
+                flex-grow: 1;
+                padding-right: .3125rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .right {
+                .tag-link {
+                    font-size: .75rem;
+                    color: #007fff;
+                }
+            }
+        }
+        .content {
+            .tag-list {
+                padding: .9375rem;
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                .tag {
+                    font-size: .75rem;
+                    margin-right: .75rem;
+                    margin-bottom: .75rem;
+                    background-color: #f3f6f3;
+                    cursor: pointer;
+                    color: inherit;
+                    line-height: 1.875rem;
+                    padding-left: 1.375rem;
+                    padding-right: 1.375rem;
+                    border-radius: 1.875rem;
+                    &:hover {
+                        color: #fff;
+                        background-color: #0c0;
+                    }
+                }
+            }
+        }
+    }
+    .books-section {
+        background-color: #fff;
+        border-radius: 2px;
+        margin-bottom: 1.125rem;
+        overflow: hidden;
+        .header {
+            line-height: 2.8125rem;
+            padding-left: .9375rem;
+            padding-right: .9375rem;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #f6f6f6;
+            .title {
+                font-size: 1.125rem;
+                flex-grow: 1;
+                padding-right: .3125rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .controlers {
+                font-size: 。75rem;
+                color: #7d7d7d;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .arrow {
+                    cursor: pointer;
+                    line-height: 1;
+                    width: .5125rem;
+                    padding: 0 .375rem;
+                }
+            }
+        }
+    }
+}

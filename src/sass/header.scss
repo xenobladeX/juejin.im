@@ -1,23 +1,14 @@
-
-@import 'normal.scss';
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
 
 // 头部
-
-$max-width: 80rem;
-
-
-.container {
-    width: 100%;
-    max-width: $max-width;
-    margin: 0 auto;
-    position: relative;
-}
 
 header {
     width: 100%;
     background-color: #fff;
     border-bottom: 1px solid #f1f1f1;
-    font-size: 1.6rem;
+    font-size: 1rem;
     &.fixed {
         position: sticky;
         top: 0;
@@ -29,10 +20,10 @@ header {
         display: flex;
         justify-content: start;
         align-items: center;
-        padding: 1rem 0;
+        padding: .7rem 0;
         .logo {
             display: inline-block;
-            margin-right: 2rem;
+            margin-right: 1.5rem;
         }
         .active {
             a {
@@ -51,16 +42,16 @@ header {
             align-items: center;
             justify-content: space-between;
             border-radius: 2px;
-            margin-right: 1rem;
+            margin-right: .75rem;
             @include media-breakpoint-down(md) {
                 display: none;
             }
             .search-input {
+                width: 7.5rem;
                 border: none;
-                width: 10rem;
-                padding: .6rem 1rem;
                 outline: none;
-                font-size: 1.1rem;
+                font-size: 0.825rem;
+                padding: .4rem 0.8rem;
                 color: #666;
                 background-color: transparent;
             }
@@ -70,48 +61,43 @@ header {
             position: relative;
             display: flex;
             align-items: center;
-            margin: auto 1rem;
+            margin: auto .75rem;
             cursor: pointer;
             @include media-breakpoint-down(md) {
                 display: none;
+            }
+            &:hover {
+                color: #0371df;
             }
             .icon {}
             &:after {
                 content: "|";
                 position: absolute;
-                right: -1rem;
+                right: -.75rem;
                 color: hsla(0, 0%, 59%, .4);
             }
         }
         .auth {
             display: flex;
             align-items: center;
-            margin: auto 1rem;
+            margin: auto .75rem;
             span {
                 color: #007fff;
                 position: relative;
                 cursor: pointer;
+                &:hover {
+                    color: #0371df;
+                }
                 &.login {
-                    margin-right: 1rem;
+                    margin-right: .75rem;
                     &:after {
                         content: "\B7";
                         position: absolute;
-                        right: -.6rem;
+                        right: -.45rem;
                     }
                 }
                 &.regist {}
             }
         }
     }
-}
-
-
-
-// 网站主要内容
-
-
-// 底部导航
-
-footer {
-
 }

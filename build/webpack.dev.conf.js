@@ -29,6 +29,11 @@ const webpackConfigDev = {
                 target: "https://recommender-api-ms.juejin.im",
                 changeOrigin: true,
                 secure: false
+            },
+            '/v1/getListByLastTime': {
+                target: 'https://xiaoce-timeline-api-ms.juejin.im',
+                changeOrigin: true,
+                secure: false
             }
         }
     },
