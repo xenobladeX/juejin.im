@@ -137,7 +137,7 @@
             justify-content: space-between;
             border-bottom: 1px solid #f6f6f6;
             .title {
-                font-size: 1.125rem;
+                font-size: .84375rem;
                 flex-grow: 1;
                 padding-right: .3125rem;
                 white-space: nowrap;
@@ -156,6 +156,112 @@
                     width: .5125rem;
                     padding: 0 .375rem;
                 }
+            }
+        }
+
+        .book-list {
+            position: relative;
+            height: 11.5625rem;
+            overflow: hidden;
+            .item {
+
+                .book-item {
+                    display: flex;
+                    padding: .625rem .9375rem;
+                    justify-content: center;
+                    cursor: pointer;
+                    .poster {
+                        width: 3.25rem;
+                        height: 4.5rem;
+                        flex-shrink: 0;
+                        .poster-img {
+                            height: 100%;
+                            width: 100%;
+                            background-position: 50%;
+                            background-repeat: no-repeat;
+                            position: relative;
+                        }
+                    }
+                    .content-text {
+                        flex-grow: 1;
+                        margin-left: .625rem;
+                        .title {
+                            color: #000;
+                            font-size: .875rem;
+                            font-weight: 500;
+                        }
+                        .price {
+                            display: inline-flex;
+                            margin-top: .375rem;
+                            font-size: .75rem;
+                            .new {
+                                margin-right: .375rem;
+                                color: #fc4544;
+                            }
+                            .delete {
+                                color: #878c90;
+                                text-decoration: line-through;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .book-newuser {
+            .newuser-title {
+                font-size: .75rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                height: 1.25rem;
+                margin-top: .3125rem;
+                span {
+                    float: left;
+                    display: block;
+                    margin-right: .3125rem;
+                    color: #878c90;
+                }
+                &::after {
+                    content: "";
+                    display: block;
+                    height: 0;
+                    border-bottom: 1px solid #f5f5f5;
+                    padding-top: .5rem;
+                    overflow: hidden;
+                }
+            }
+            .gift-bag {
+                display: flex;
+                padding: .9375rem .9375rem 1.25rem;
+                cursor: pointer;
+                img {
+                    width: 3.25rem;
+                    display: block;
+                }
+                .content-text {
+                    margin-left: .75rem;
+                    .title {
+                        font-size: .875rem;
+                        font-weight: 700;
+                        margin-bottom: .5rem;
+                        .highlight {
+                            color: #fc4544;
+                            margin-left: .3125rem;
+                            margin-right: .3125rem;
+                        }
+                    }
+                    .btn-box {
+                        width: 3.75rem;
+                        height: 1.25rem;
+                        color: #007fff;
+                        line-height: 1.25rem;
+                        border-radius: 2px;
+                        font-size: .75rem;
+                        text-align: center;
+                        border: 1px solid #007fff;
+                    }
+                }
+                
             }
         }
     }

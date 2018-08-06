@@ -3,6 +3,8 @@ import './index.scss';
 import '../../components/tooltip/tooltip.scss';
 import '../../../node_modules/ionicons/dist/scss/ionicons.scss';
 
+// css
+import 'owl.carousel/dist/assets/owl.carousel.css';
 
 // template
 import user_tooltip_template from './user-tooltip-template.html';
@@ -15,6 +17,8 @@ import Tooltip from 'tooltip.js';
 import 'jsviews';
 import '../../components/dropload/dropload';
 import store from 'store';
+
+import 'owl.carousel';
 
 $(document).ready(function () {
     var recommendedData = {
@@ -116,8 +120,8 @@ $(document).ready(function () {
                         me.noData();
                     } else {
                         $.observable(recommendedData.d).insert(entryList);
-                        me.resetload();
                     }
+                    me.resetload();
                 }).fail(err => {
                     console.warn('load recommended failed: ' + err);
                     me.resetload();
@@ -133,4 +137,14 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('.owl-carousel').owlCarousel({
+        items: 1,
+        loop: true,
+        autoplay: true,
+        autoplayHoverPause: true,
+    });
+
+
+
 });
