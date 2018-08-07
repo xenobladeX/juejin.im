@@ -1,0 +1,16 @@
+<ul class="banner-list">
+        {{for bannerList}}
+        <li class="item">
+            <a href="{{:url}}" target="_blank">
+                <div class="banner-image" style="background-image: url({{:screenshot}}); background-size: cover;"></div>
+            </a>
+            <div class="ctrl-box">
+                <i class="ion-md-close close-btn"></i>
+                <a href="https://bd.juejin.im/?utm_campaign=bd&utm_source=web&utm_medium=banner" class="label" target="_blank">
+                    <span class="inco">投放</span>
+                    <span>广告</span>
+                </a>
+            </div>
+        </li>
+        {{/for}}
+    </ul>

@@ -10,21 +10,21 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import user_tooltip_template from './user-tooltip-template.html';
 import entry_list_template from './entry-list-template.html';
 import book_list_template from './book-list-template.html';
+import banner_list_template from './banner-list-template.html';
 
 // js
 import '../../components/collapse/collapseDropdown';
-// import '../../components/tooltip/tooltip';
 import Tooltip from 'tooltip.js';
 import 'jsviews';
 import '../../components/dropload/dropload';
 import store from 'store';
-
 import 'owl.carousel';
 
 $(document).ready(function () {
     var data = {
         rencommendedEntryList: [],
-        bookList: []
+        bookList: [],
+        bannerList: []
     };
     var suid = null;
     var isFirstLoad = true;
@@ -33,6 +33,7 @@ $(document).ready(function () {
     let entryListTemplate = $.templates(entry_list_template);
     let userTooltipTemplate = $.templates(user_tooltip_template);
     let bookListTemplate = $.templates(book_list_template);
+    let bannerListTemplate = $.templates(banner_list_template);
 
     var generateSuid = () => {
         var deferred = $.Deferred();
@@ -89,7 +90,7 @@ $(document).ready(function () {
                         var bookListIndex = parseInt(index / 2);
                         var bookItem = bookItemList[bookListIndex];
                         if (!bookItem) {
-                            bookItem = { 'bookItem': [] }
+                            bookItem = { 'bookItem': [] };
                             bookItemList.push(bookItem);
                         }
                         bookItem.bookItem.push(item);
@@ -104,11 +105,27 @@ $(document).ready(function () {
         return deferred;
     }
 
+    var getBanner = () => {
+        var deferred = $.Deferred();
+        $.getJSON('/v1/web/aanner?position=hero&platform=web&page=0&pageSize=20&src=web')
+            .then(get_banner_response => {
+                if (get_banner_response.m !== 'ok') {
+                    deferred.reject(new Error('get banner response error: ' + get_banner_response.m));
+                } else {
+                    var bannerList = get_banner_response.d.banner;
+                    deferred.resolve($.isEmptyObject(bannerList) ? [] : bannerList);
+                }
+            }, err => {
+                console.warn('get banner failed: ' + err);
+                deferred.reject(err);
+            });
+        return deferred;
+    }
+
     /******************************************main */
 
     // 绑定模板
     entryListTemplate.link('#entry-list', data);
-
     // add array observer, bind insert to user-tooltip
     $.observe(data.rencommendedEntryList, function (event, eventArg) {
         if (eventArg.change === 'insert') {
@@ -154,11 +171,11 @@ $(document).ready(function () {
         }
     });
 
+    // 小册子
     getBookList().done(bookList => {
         $.observable(data.bookList).insert(bookList);
 
         // render
-        // bookListTemplate.link('.books-section .owl-carousel', data);
         var html = bookListTemplate.render(data);
         $('.books-section .book-list').html(html);
 
@@ -166,21 +183,19 @@ $(document).ready(function () {
         var owl = $('.books-section .owl-carousel');
         owl.owlCarousel({
             items: 1,
-            loop: true,
-            // autoplay: true,
-            // autoplayHoverPause: true,
+            loop: true
         });
 
         // 滚动广告的控制按钮
-        $('.books-section .controlers .ion-ios-arrow-back').click(function() {
+        $('.books-section .controlers .ion-ios-arrow-back').click(function () {
             owl.trigger('prev.owl.carousel');
         });
-        $('.books-section .controlers .ion-ios-arrow-forward').click(function() {
+        $('.books-section .controlers .ion-ios-arrow-forward').click(function () {
             owl.trigger('next.owl.carousel');
         });
 
         // 添加点击跳转
-        $('.books-section .book-item').click(function() {
+        $('.books-section .book-item').click(function () {
             console.log('hehe');
             var id = $(this).prop('id');
             window.location.href = `https://juejin.im/book/${id}`;
@@ -188,6 +203,20 @@ $(document).ready(function () {
         });
     });
 
+    // 广告
+    getBanner().done(bannerList => {
+        console.log(bannerList);
+        $.observable(data.bannerList).insert(bannerList);
 
+        // render
+        var html = bannerListTemplate.render(data);
+        $('.banner-section').html(html);
+
+        // close
+        $('.banner-list .close-btn').click(function() {
+            $(this).closest('.item').remove();
+        });
+
+    });
 
 });

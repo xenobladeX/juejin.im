@@ -34,6 +34,11 @@ const webpackConfigDev = {
                 target: 'https://xiaoce-timeline-api-ms.juejin.im',
                 changeOrigin: true,
                 secure: false
+            },
+            '/v1/web/aanner': {
+                target: 'https://banner-storage-ms.juejin.im',
+                changeOrigin: true,
+                secure: false
             }
         }
     },
