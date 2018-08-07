@@ -167,6 +167,9 @@
                     padding: .625rem .9375rem;
                     justify-content: center;
                     cursor: pointer;
+                    &:hover {
+                        background-color: #f8f8f8;
+                    }
                     .poster {
                         width: 3.25rem;
                         height: 4.5rem;

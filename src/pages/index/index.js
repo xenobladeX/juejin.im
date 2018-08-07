@@ -178,6 +178,14 @@ $(document).ready(function () {
         $('.books-section .controlers .ion-ios-arrow-forward').click(function() {
             owl.trigger('next.owl.carousel');
         });
+
+        // 添加点击跳转
+        $('.books-section .book-item').click(function() {
+            console.log('hehe');
+            var id = $(this).prop('id');
+            window.location.href = `https://juejin.im/book/${id}`;
+            return false;
+        });
     });
 
 
