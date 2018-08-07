@@ -9,6 +9,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 // template
 import user_tooltip_template from './user-tooltip-template.html';
 import entry_list_template from './entry-list-template.html';
+import book_list_template from './book-list-template.html';
 
 // js
 import '../../components/collapse/collapseDropdown';
@@ -21,8 +22,9 @@ import store from 'store';
 import 'owl.carousel';
 
 $(document).ready(function () {
-    var recommendedData = {
-        d: []
+    var data = {
+        rencommendedEntryList: [],
+        bookList: []
     };
     var suid = null;
     var isFirstLoad = true;
@@ -30,6 +32,7 @@ $(document).ready(function () {
     // 模板
     let entryListTemplate = $.templates(entry_list_template);
     let userTooltipTemplate = $.templates(user_tooltip_template);
+    let bookListTemplate = $.templates(book_list_template);
 
     var generateSuid = () => {
         var deferred = $.Deferred();
@@ -80,7 +83,19 @@ $(document).ready(function () {
                 if (get_booklist_response.m !== 'ok') {
                     deferred.reject(new Error('get book list response error: ' + get_booklist_response.m));
                 } else {
-                    deferred.resolve(get_booklist_response.d);
+                    var bookList = get_booklist_response.d;
+                    var bookItemList = [];
+                    bookList.forEach((item, index) => {
+                        var bookListIndex = parseInt(index / 2);
+                        var bookItem = bookItemList[bookListIndex];
+                        if (!bookItem) {
+                            bookItem = { 'bookItem': [] }
+                            bookItemList.push(bookItem);
+                        }
+                        bookItem.bookItem.push(item);
+                    });
+
+                    deferred.resolve(bookItemList);
                 }
             }, err => {
                 console.warn('get book list failed: ' + err);
@@ -92,9 +107,10 @@ $(document).ready(function () {
     /******************************************main */
 
     // 绑定模板
-    entryListTemplate.link('#template-container', recommendedData);
+    entryListTemplate.link('#entry-list', data);
+
     // add array observer, bind insert to user-tooltip
-    $.observe(recommendedData.d, function (event, eventArg) {
+    $.observe(data.rencommendedEntryList, function (event, eventArg) {
         if (eventArg.change === 'insert') {
             $(eventArg.items).each((index, element) => {
                 const instance = new Tooltip($(`#${element.objectId} .username [data-toggle="tooltip"]`), {
@@ -112,14 +128,14 @@ $(document).ready(function () {
         loadDownFn: function (me) {
             if (isFirstLoad) {
                 generateSuid().then(() => {
-                    console.log(suid);
+
                     return getRecommendedEntry();
                 }).done((entryList) => {
                     isFirstLoad = false;
                     if (entryList.length === 0) {
                         me.noData();
                     } else {
-                        $.observable(recommendedData.d).insert(entryList);
+                        $.observable(data.rencommendedEntryList).insert(entryList);
                     }
                     me.resetload();
                 }).fail(err => {
@@ -128,7 +144,7 @@ $(document).ready(function () {
                 });
             } else {
                 getRecommendedEntry().done((newEntryList) => {
-                    $.observable(recommendedData.d).insert(newEntryList);
+                    $.observable(data.rencommendedEntryList).insert(newEntryList);
                     me.resetload();
                 }).fail(err => {
                     console.warn('refresh recommended failed: ' + err);
@@ -138,11 +154,30 @@ $(document).ready(function () {
         }
     });
 
-    $('.owl-carousel').owlCarousel({
-        items: 1,
-        loop: true,
-        autoplay: true,
-        autoplayHoverPause: true,
+    getBookList().done(bookList => {
+        $.observable(data.bookList).insert(bookList);
+
+        // render
+        // bookListTemplate.link('.books-section .owl-carousel', data);
+        var html = bookListTemplate.render(data);
+        $('.books-section .book-list').html(html);
+
+        // 小册子滚动广告
+        var owl = $('.books-section .owl-carousel');
+        owl.owlCarousel({
+            items: 1,
+            loop: true,
+            // autoplay: true,
+            // autoplayHoverPause: true,
+        });
+
+        // 滚动广告的控制按钮
+        $('.books-section .controlers .ion-ios-arrow-back').click(function() {
+            owl.trigger('prev.owl.carousel');
+        });
+        $('.books-section .controlers .ion-ios-arrow-forward').click(function() {
+            owl.trigger('next.owl.carousel');
+        });
     });
 
 

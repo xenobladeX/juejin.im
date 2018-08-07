@@ -1,0 +1,20 @@
+<div class="owl-carousel owl-theme">
+    {^{for bookList}}
+    <div class="item">
+        {{for bookItem}}
+        <a href="#" class="book-item" id="{{:_id}}">
+            <div class="poster">
+                <div class="poster-img" style="background-image: url({{:img}}); background-size: cover;"></div>
+            </div>
+            <div class="content-text">
+                <div class="title">{{:title}}</div>
+                <div class="price">
+                    <div class="new">新人价 ￥{{:price/2}}</div>
+                    <div class="delete">￥{{:price}}</div>
+                </div>
+            </div>
+        </a>
+        {{/for}}
+    </div>
+    {{/for}}
+</div>
