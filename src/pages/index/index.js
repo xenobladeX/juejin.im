@@ -124,9 +124,9 @@ $(document).ready(function () {
 
     /******************************************main */
 
-    // 绑定模板
+    // 文章列表
     entryListTemplate.link('#entry-list', data);
-    // add array observer, bind insert to user-tooltip
+    // Bind entry to user-tooltip
     $.observe(data.rencommendedEntryList, function (event, eventArg) {
         if (eventArg.change === 'insert') {
             $(eventArg.items).each((index, element) => {

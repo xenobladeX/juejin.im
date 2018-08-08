@@ -398,4 +398,74 @@
             }
         }
     }
+    .follow-section {
+        background-color: transparent;
+        text-align: center;
+        color: #909090;
+        box-shadow: none;
+        overflow: visible;
+        .header {
+            font-size: .75rem;
+        }
+        .account-list {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            .item {
+                padding-bottom: .6rem;
+                .icon {
+                    width: 1.5rem;
+                    margin-left: .375rem;
+                    margin-right: .375rem;
+                    cursor: pointer;
+                }
+                &.wechat {
+                    position: relative;
+                    &:hover {
+                        .qr-pannel {
+                            opacity: 1;
+                            -webkit-transform: rotateY(0deg);
+                            transform: rotateY(0deg);
+                        }
+                    }
+                    .qr-pannel {
+                        position: absolute;
+                        background-color: #fff;
+                        width: 7.5rem;
+                        top: 100%;
+                        left: 0;
+                        z-index: 2;
+                        padding: .6rem 0 0;
+                        border: 1px solid #ddd;
+                        opacity: 0;
+                        -webkit-transform: rotateY(90deg);
+                        transform: rotateY(90deg);
+                        .qr {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .more-section {
+        background-color: transparent;
+        text-align: center;
+        color: #909090;
+        font-size: 1.1rem;
+        box-shadow: none;
+        .more-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: .4rem;
+            font-size: .75rem;
+            .item:not(:last-child) {
+                a::after {
+                    content: "\B7";
+                    margin: 0 .4rem;
+                }
+            }
+        }
+    }
 }
