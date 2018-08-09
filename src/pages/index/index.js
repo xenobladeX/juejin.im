@@ -122,8 +122,10 @@ $(document).ready(function () {
         return deferred;
     }
 
-    /******************************************main */
-
+    /**
+     * main
+     */
+    
     // 文章列表
     entryListTemplate.link('#entry-list', data);
     // Bind entry to user-tooltip

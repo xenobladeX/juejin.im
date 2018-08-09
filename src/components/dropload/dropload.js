@@ -16,30 +16,72 @@ const Dropload = ($ => {
     const ClassName = {};
 
     const Default = {
-        domUp: {                                                            // 上方DOM
-            domClass: 'dropload-up',
-            domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
-            domUpdate: '<div class="dropload-update">↑释放更新</div>',
-            domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+        scrollArea: window,
+        up: {
+            dom: {                                                            // 上方DOM
+                domClass: 'dropload-up',
+                domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
+                domUpdate: '<div class="dropload-update">↑释放更新</div>',
+                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+            },
+            distance: 50,                                                       // 拉动距离
+            callback: '',                                                       // 上方function
         },
-        domDown: {                                                          // 下方DOM
-            domClass: 'dropload-down',
-            domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
-            domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-            domNoData: '<div class="dropload-noData">暂无数据</div>'
+        down: {
+            dom: {                                                          // 下方DOM
+                domClass: 'dropload-down',
+                domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData: '<div class="dropload-noData">暂无数据</div>'
+            },
+            distance: 50,                                                       // 拉动距离
+            threshold: '',                                                      // 提前加载距离
+            callback: ''                                                      // 下方function
         },
-        distance: 50,                                                       // 拉动距离
-        threshold: '',                                                      // 提前加载距离
-        loadUpFn: '',                                                       // 上方function
-        loadDownFn: ''                                                      // 下方function
     };
 
     class Dropload {
         constructor(element, config) {
-            this.element = element;
+            this._element = element;
             this._config = this._getConfig(config);
 
-            this.isLoading = false;
+            this._isLoading = false;
+            this._num = 0;
+            this._isLockUp = false;
+            this._isLockDown = false;
+
+            // 如果加载下方，事先在下方插入DOM
+            if (this._config.down.callback != '') {
+                this._element.append('<div class="' + this._config.down.dom.domClass + '">' + this._config.down.dom.domRefresh + '</div>');
+                this._domDown = $('.' + me.opts.domDown.domClass);
+            }
+
+            // TODO: 计算提前加载距离（可以进一步优化）
+            if (!!this._domDown && this._config.threshold === '') {
+                // 默认滑到加载区2/3处时加载
+                this._threshold = Math.floor(this._domDown.height() * 1 / 3);
+            } else {
+                this._threshold = this._config.threshold;
+            }
+
+            // 判断滚动区域
+            if (this._config.scrollArea == window) {
+                // 获取文档高度
+                this._scrollContentHeight = $(document).height();
+                // 获取win显示区高度  —— 这里有坑
+                this._scrollWindowHeight = document.documentElement.clientHeight;
+            } else {
+                this._scrollArea = this._config.scrollArea;
+                this._scrollContentHeight = this._element.scrollHeight;
+                this._scrollWindowHeight = this._element.height();
+            }
+            this._autoLoad();
+
+
+
+
+
+
 
             this._addEventListeners();
         }
@@ -50,6 +92,27 @@ const Dropload = ($ => {
 
 
 
+        // public
+
+        loadDwon() {
+
+
+
+
+        }
+
+        lock() {
+
+        }
+
+        unlock() {
+
+        }
+
+
+        endByNum(num) {
+
+        }
 
 
 
@@ -58,15 +121,31 @@ const Dropload = ($ => {
 
 
 
+        // private
+        _getConfig(config) {
+            config = {
+                ...this.constructor.Default,
+                ...$(this._element).data(),
+                ...config
+            }
+
+            return config
+        }
+
+        _addEventListeners() {
 
 
 
 
+        }
 
-
-
-
-
+        _autoLoad() {
+            if (this._config.down.callback != '') {
+                if(this._element.offset().top - this._threshold <= this._scrollArea.offset().top) {
+                    loadDown();
+                }
+            }
+        }
 
 
 
