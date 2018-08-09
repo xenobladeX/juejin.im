@@ -141,7 +141,7 @@ const Dropload = ($ => {
 
         _autoLoad() {
             if (this._config.down.callback != '') {
-                if(this._element.offset().top - this._threshold <= this._scrollArea.offset().top) {
+                if(this._element.offset().top + this._element.height() - this._threshold <= this._scrollArea.offset().top + this._scrollWindowHeight) {
                     loadDown();
                 }
             }
