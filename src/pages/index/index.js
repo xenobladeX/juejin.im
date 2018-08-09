@@ -139,35 +139,25 @@ $(document).ready(function () {
         }
     });
 
+
+
     // 上拉加载更多
     $('#entry-list').dropload({
         scrollArea: window,
         loadDownFn: function (me) {
-            if (isFirstLoad) {
-                generateSuid().then(() => {
+            generateSuid().then(() => {
 
-                    return getRecommendedEntry();
-                }).done((entryList) => {
-                    isFirstLoad = false;
-                    if (entryList.length === 0) {
-                        me.noData();
-                    } else {
-                        $.observable(data.rencommendedEntryList).insert(entryList);
-                    }
-                    me.resetload();
-                }).fail(err => {
-                    console.warn('load recommended failed: ' + err);
-                    me.resetload();
-                });
-            } else {
-                getRecommendedEntry().done((newEntryList) => {
-                    $.observable(data.rencommendedEntryList).insert(newEntryList);
-                    me.resetload();
-                }).fail(err => {
-                    console.warn('refresh recommended failed: ' + err);
-                    me.resetload();
-                });
-            }
+                return getRecommendedEntry();
+            }).done((entryList) => {
+                $.observable(data.rencommendedEntryList).insert(entryList);
+                if (data.rencommendedEntryList.length === 0) {
+                    me.noData();
+                }
+                me.resetload();
+            }).fail(err => {
+                console.warn('load recommended failed: ' + err);
+                me.resetload();
+            });
         }
     });
 
