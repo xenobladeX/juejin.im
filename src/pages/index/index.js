@@ -125,7 +125,7 @@ $(document).ready(function () {
     /**
      * main
      */
-    
+
     // 文章列表
     entryListTemplate.link('#entry-list', data);
     // Bind entry to user-tooltip
@@ -142,25 +142,31 @@ $(document).ready(function () {
     });
 
 
-
+    var num = 0;
     // 上拉加载更多
     $('#entry-list').dropload({
-        scrollArea: window,
-        loadDownFn: function (me) {
-            generateSuid().then(() => {
+        scrollAreas: [window],
+        num: 0,
+        down: {
+            callback: function (dropload) {
+                generateSuid().then(() => {
 
-                return getRecommendedEntry();
-            }).done((entryList) => {
-                $.observable(data.rencommendedEntryList).insert(entryList);
-                if (data.rencommendedEntryList.length === 0) {
-                    me.noData();
-                }
-                me.resetload();
-            }).fail(err => {
-                console.warn('load recommended failed: ' + err);
-                me.resetload();
-            });
-        }
+                    return getRecommendedEntry();
+                }).done((entryList) => {
+                    $.observable(data.rencommendedEntryList).insert(entryList);
+
+                    dropload.endByNum(data.rencommendedEntryList.length);
+                }).fail(err => {
+                    console.warn('load recommended failed: ' + err);
+                    dropload.endByNum(data.rencommendedEntryList.length);
+                });
+            }
+        },
+        // up: {
+        //     callback: function(dropload) {
+
+        //     }
+        // }
     });
 
     // 小册子
@@ -188,7 +194,6 @@ $(document).ready(function () {
 
         // 添加点击跳转
         $('.books-section .book-item').click(function () {
-            console.log('hehe');
             var id = $(this).prop('id');
             window.location.href = `https://juejin.im/book/${id}`;
             return false;
@@ -197,7 +202,6 @@ $(document).ready(function () {
 
     // 广告
     getBanner().done(bannerList => {
-        console.log(bannerList);
         $.observable(data.bannerList).insert(bannerList);
 
         // render
@@ -205,7 +209,7 @@ $(document).ready(function () {
         $('.banner-section').html(html);
 
         // close
-        $('.banner-list .close-btn').click(function() {
+        $('.banner-list .close-btn').click(function () {
             $(this).closest('.item').remove();
         });
 

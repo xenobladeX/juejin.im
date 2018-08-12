@@ -126,11 +126,28 @@ const Util = (($) => {
                     }
                 }
             }
+        },
+
+        isInViewport(element) {
+            var elementTop = element.offset().top;
+            var elementBottom = elementTop + element.outerHeight();
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+            var isVisible = elementBottom > viewportTop && elementTop < viewportBottom;
+            // console.log(`${isVisible ? 'visible': 'invisible'}`);
+            return isVisible;
+        },
+
+        transition(element, num) {
+            element.css({
+                '-webkit-transition':'all '+num+'ms',
+                'transition':'all '+num+'ms'
+            });
         }
     };
     setTransitionEndSupport();
     return Util;
-}) ($);
+})($);
 
 
 
