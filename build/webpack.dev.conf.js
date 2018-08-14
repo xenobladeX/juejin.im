@@ -30,6 +30,11 @@ const webpackConfigDev = {
                 changeOrigin: true,
                 secure: false
             },
+            "/v1/get_entry_by_rank": {
+                target: "https://timeline-merger-ms.juejin.im",
+                changeOrigin: true,
+                secure: false
+            },
             '/v1/getListByLastTime': {
                 target: 'https://xiaoce-timeline-api-ms.juejin.im',
                 changeOrigin: true,
