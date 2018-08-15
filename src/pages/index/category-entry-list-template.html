@@ -1,36 +1,93 @@
 <ul class="entry-list">
-        {^{for categoryEntryList}}
-        <li class="item" id="{{:objectId}}">
-            <div class="entry">
-                <a href="#" class="entry-link">
-                    <div class="content-box">
-                        <div class="info-box">
-                            <div class="title-row">
+    {^{for categoryEntryList}}
+    <li class="item" id="{{:objectId}}">
+        <div class="entry nest-link ">
+            <a href="{{:originalUrl}}" class="entry-link nest-link-overlay "></a>
+            <div class="content-box nest-link-content ">
+                <div class="info-box ">
+                    <div class="meta-row ">
+                        <ul class="meta-list ">
+                            {{if collectionCount>100}}
+                            <li class="item hot ">热</li>
+                            {{/if}}
+                            {{if original}}
+                            <li class="item post ">专栏</li>
+                            {{/if}}
+                            <li class="item username ">
+                                <a href="#">{{:user.username}}</a>
+                            </li>
+                            <li class="item ">6小时前</li>
+                            <li class="item tag ">
+                                <a href="# ">Vue.js</a>
+                                <a href="# ">浏览器</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="title-row ">
+                        <a href="{{:originalUrl}}" class="title ">{{:title}}</a>
+                    </div>
+                    <div class="action-row ">
+                        <ul class="action-list ">
+                            <li class="item like hoverable ">
+                                <div href="#" class="box ">
+                                    <img src="../../images/icon-like.svg " class="icon ">
+                                    <span class="count ">{{:collectionCount}}</span>
+                                </div>
+                            </li>
+                            <li class="item comment hoverable ">
+                                <div href="#" class="box ">
+                                    <img src="../../images/icon-comment.svg " class="icon ">
+                                    <span class="count ">{{:commentsCount}}</span>
+                                </div>
+                            </li>
+                            <li class="item share hover hoverable ">
+                                <img src="../../images/icon-share.svg " class="icon ">
+                            </li>
+
+                            <li class="item collect hover hoverable ">
+                                <img src="../../images/icon-collect.svg " class="icon ">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    {{/for}}
+</ul>
+
+<ul class="entry-list ">
+
+        <li class="item " id="{{:objectId}} ">
+            <div class="entry ">
+                <a href="# " class="entry-link ">
+                    <div class="content-box ">
+                        <div class="info-box ">
+                            <div class="title-row ">
                                 <object>
-                                    <a href="{{:originalUrl}}" target="_blank">{{:title}}</a>
+                                    <a href="{{:originalUrl}} " target="_blank ">{{:title}}</a>
                                 </object>
                             </div>
-                            <div class="meta-row">
-                                <ul class="meta-list">
-                                    <li class="item">
-                                        <span class="category-title {{:category.title}}">{{:category.name}}</span>
+                            <div class="meta-row ">
+                                <ul class="meta-list ">
+                                    <li class="item ">
+                                        <span class="category-title {{:category.title}} ">{{:category.name}}</span>
                                     </li>
-                                    <li class="item username">
-                                        <object data-toggle="tooltip" data-target=".user-tooltip">
-                                            <a href="">{{:user.username}}</a>
+                                    <li class="item username ">
+                                        <object data-toggle="tooltip " data-target=".user-tooltip ">
+                                            <a href=" ">{{:user.username}}</a>
                                         </object>
                                     </li>
-                                    <li class="item">3月前</li>
-                                    <li class="item">{{:viewsCount}} 次阅读</li>
+                                    <li class="item ">3月前</li>
+                                    <li class="item ">{{:viewsCount}} 次阅读</li>
                                 </ul>
                             </div>
                         </div>
                         <!-- syntax -->
-                        <div class="thumb" style="background-image: url({{:screenshot}});
-                        background-size: cover;"></div>
+                        <div class="thumb " style="background-image: url({{:screenshot}}); background-size: cover; "></div>
                     </div>
                 </a>
             </div>
         </li>
-        {{/for}}
+
     </ul>

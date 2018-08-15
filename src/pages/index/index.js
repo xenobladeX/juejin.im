@@ -32,7 +32,7 @@ $(document).ready(function () {
     };
     var suid = null;
     var isFirstLoad = true;
-    var isWelcom = true;
+    var category = null;
     var entryListRequest = null;
 
     // 模板
@@ -64,7 +64,7 @@ $(document).ready(function () {
         return deferred;
     };
 
-    var getRecommendedEntry = (requestCallback) => {
+    var getRecommendedEntry = () => {
         var deferred = $.Deferred();
         if (suid == null) {
             deferred.reject(new Error('suid is null'));
@@ -80,16 +80,14 @@ $(document).ready(function () {
                     console.warn('get recommended entry failed: ' + errorThrown);
                     deferred.reject(errorThrown);
                 });
-                if (requestCallback) {
-                    requestCallback(xhr);
-                }
+            entryListRequest = xhr;
         }
         return deferred;
     }
 
-    var getCategoryEntry = (id, requestCallback, count = 20) => {
+    var getCategoryEntry = (id, count = 20) => {
         var deferred = $.Deferred();
-        $.getJSON(`/v1/get_entry_by_rank?src=web&limit=${count}&category=${id}`)
+        var xhr = $.getJSON(`/v1/get_entry_by_rank?src=web&limit=${count}&category=${id}`)
             .then((get_category_entry_response, textStatus, jqXHR) => {
                 if (get_category_entry_response.m !== 'ok') {
                     deferred.reject(new Error('get recommended entry response error: ' + get_category_entry_response.m));
@@ -100,9 +98,7 @@ $(document).ready(function () {
                 console.warn('get category entry failed: ' + errorThrown);
                 deferred.reject(errorThrown);
             });
-            if (requestCallback) {
-                requestCallback(xhr);
-            }
+        entryListRequest = xhr;
         return deferred;
     }
 
@@ -168,10 +164,10 @@ $(document).ready(function () {
                 entryListRequest.abort();
             }
             if ($(this).index() == 0) {
-                isWelcom = true;
+                category = null;
                 $.observable(data.categoryEntryList).remove(0, data.categoryEntryList.length);
             } else {
-                isWelcom = false;
+                category = $(this).prop("id");
                 $.observable(data.rencommendedEntryList).remove(0, data.rencommendedEntryList);
             }
 
@@ -183,7 +179,7 @@ $(document).ready(function () {
     // 推荐 文章列表
     recommendedEntryListTemplate.link('#entry-list .recommended', data);
     // 分类 文章列表
-    // categoryEntryListTemplate.link('#entry-list .category', data);
+    categoryEntryListTemplate.link('#entry-list .category', data);
 
     // Bind entry to user-tooltip
     $.observe(data.rencommendedEntryList, function (event, eventArg) {
@@ -199,32 +195,44 @@ $(document).ready(function () {
     });
 
     // 上拉加载更多
-    // $('#entry-list').dropload({
-    //     scrollAreas: [window],
-    //     num: 0,
-    //     down: {
-    //         callback: function (dropload) {
-    //             generateSuid().then(() => {
+    $('#entry-list').dropload({
+        scrollAreas: [window],
+        num: 0,
+        down: {
+            callback: function (dropload) {
+                if (category == null) { // 推荐列表
+                    generateSuid().then(() => {
 
-    //                 return getRecommendedEntry( request => {
-    //                     entryListRequest = request;
-    //                 });
-    //             }).done((entryList) => {
-    //                 $.observable(data.rencommendedEntryList).insert(entryList);
+                        return getRecommendedEntry(request => {
+                            entryListRequest = request;
+                        });
+                    }).done((entryList) => {
+                        $.observable(data.rencommendedEntryList).insert(entryList);
 
-    //                 dropload.endByNum(data.rencommendedEntryList.length);
-    //             }).fail(err => {
-    //                 console.warn('load recommended failed: ' + err);
-    //                 dropload.endByNum(data.rencommendedEntryList.length);
-    //             });
-    //         }
-    //     },
-    //     // up: {
-    //     //     callback: function(dropload) {
+                        dropload.endByNum(data.rencommendedEntryList.length);
+                    }).fail(err => {
+                        console.warn('load recommended entry list failed: ' + err);
+                        dropload.endByNum(data.rencommendedEntryList.length);
+                    });
 
-    //     //     }
-    //     // }
-    // });
+                } else {    // 分类列表
+                    getCategoryEntry(category).done((entryList) => {
+                        $.observable(data.categoryEntryList).insert(entryList);
+
+                        dropload.endByNum(data.categoryEntryList.length);
+                    }).fail(err => {
+                        console.warn('load category entry list failed: ' + err);
+                        dropload.endByNum(data.categoryEntryList.length);
+                    });
+                }
+            }
+        },
+        // up: {
+        //     callback: function(dropload) {
+
+        //     }
+        // }
+    });
 
     // 小册子
     getBookList().done(bookList => {
