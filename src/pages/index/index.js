@@ -1,6 +1,8 @@
 // sass
 import './index.scss';
 import '../../components/tooltip/tooltip.scss';
+import '../../sass/user-tooltip.scss';
+import '../../components/nest-link/nest-link.scss';
 import '../../../node_modules/ionicons/dist/scss/ionicons.scss';
 
 // css
@@ -20,7 +22,6 @@ import 'jsviews';
 import '../../components/dropload/dropload';
 import store from 'store';
 import 'owl.carousel';
-import { request } from 'https';
 
 $(document).ready(function () {
     var data = {

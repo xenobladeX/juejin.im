@@ -3,7 +3,6 @@
 @import "../../sass/bootstrap/mixins";
 #entry-list {
     .entry {
-        position:relative;
         &:hover {
             background-color: rgba(0, 0, 0, .01);
             .action-list {
@@ -18,16 +17,18 @@
             }
         }
         .entry-link {
-            .content-box {
-                display: flex;
-                align-items: center;
-                padding: .87525rem 1.5rem;
-                min-height: 4.3125rem;
-                color: #8f969c;
-                .info-box {
-                    flex: 1 1 auto;
-                    flex-direction: column;
-                }
+
+        }
+
+        .content-box {
+            display: flex;
+            align-items: center;
+            padding: .87525rem 1.5rem;
+            min-height: 4.3125rem;
+            color: #8f969c;
+            .info-box {
+                flex: 1 1 auto;
+                flex-direction: column;
             }
         }
     }

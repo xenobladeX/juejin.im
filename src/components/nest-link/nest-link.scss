@@ -1,0 +1,30 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+
+.nest-link {
+    position: relative;
+    .nest-link-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+    }
+    .nest-link-content {
+        position: relative;
+        pointer-events: none;
+        z-index: 1;
+        a {
+            pointer-events: all;
+            position: relative;
+        }
+        .hoverable {
+            pointer-events: all;
+            cursor: pointer;
+        }
+    }
+}
+
+
+
