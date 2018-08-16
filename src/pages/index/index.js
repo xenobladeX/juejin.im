@@ -75,8 +75,8 @@ $(document).ready(function () {
         if (suid == null) {
             deferred.reject(new Error('suid is null'));
         } else {
-            var xhr = $.getJSON(`/v1/get_recommended_entry?suid=${suid}&ab=welcome_3&src=web`)
-                .then((get_recommended_entry_response, textStatus, jqXHR) => {
+            entryListRequest = $.getJSON(`/v1/get_recommended_entry?suid=${suid}&ab=welcome_3&src=web`);
+            entryListRequest.then((get_recommended_entry_response, textStatus, jqXHR) => {
                     if (get_recommended_entry_response.m !== 'ok') {
                         deferred.reject(new Error('get recommended entry response error: ' + get_recommended_entry_response.m));
                     } else {
@@ -120,8 +120,7 @@ $(document).ready(function () {
 
     var getCategories = () => {
         var deferred = $.Deferred();
-        entryListRequest = $.getJSON('/v1/categories');
-        entryListRequest.then((get_categories_response, textStatus, jqXHR) => {
+        $.getJSON('/v1/categories').then((get_categories_response, textStatus, jqXHR) => {
             if (get_categories_response.m !== 'ok') {
                 deferred.reject(new Error('get categories response error: ' + get_categories_response.m));
             } else {
