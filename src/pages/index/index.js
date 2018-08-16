@@ -22,7 +22,7 @@ import 'jsviews';
 import '../../components/dropload/dropload';
 import store from 'store';
 import 'owl.carousel';
-import { error } from 'util';
+import Util from '../../components/utils/util';
 
 $(document).ready(function () {
     var data = {
@@ -34,6 +34,12 @@ $(document).ready(function () {
     var suid = null;
     var category = null;
     var entryListRequest = null;
+    const userTooltipHelper = {
+        position: Util.position,
+    };
+    const entryHelper = {
+        timeago: Util.timeago,
+    }
 
     // 模板
     let recommendedEntryListTemplate = $.templates(recommended_entry_list_template);
@@ -204,16 +210,16 @@ $(document).ready(function () {
     });
 
     // 推荐 文章列表
-    recommendedEntryListTemplate.link('#entry-list .recommended', data);
+    recommendedEntryListTemplate.link('#entry-list .recommended', data, entryHelper);
     // 分类 文章列表
-    categoryEntryListTemplate.link('#entry-list .category', data);
+    categoryEntryListTemplate.link('#entry-list .category', data, entryHelper);
 
     var entryListChange = (event, eventArg) => {
         if (eventArg.change === 'insert') {
             // Bind entry to user-tooltip
             $(eventArg.items).each((index, element) => {
                 const instance = new Tooltip($(`#${element.objectId} .username [data-toggle="tooltip"]`), {
-                    title: userTooltipTemplate.render(element.user),
+                    title: userTooltipTemplate.render(element.user, userTooltipHelper),
                     html: true,
                     delay: { show: 500, hide: 100 },
                     boundariesElement: document.getElementsByClassName('view')[0]
