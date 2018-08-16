@@ -1,7 +1,9 @@
 @import "../../sass/bootstrap/functions";
 @import "../../sass/bootstrap/variables";
 @import "../../sass/bootstrap/mixins";
+
 $tooltip-arrow-size: .5rem;
+
 .tooltip {
     position: absolute;
     background: #fff;

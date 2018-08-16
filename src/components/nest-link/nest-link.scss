@@ -3,6 +3,21 @@
 @import "../../sass/bootstrap/mixins";
 
 .nest-link {
+    cursor: pointer;
+    .nest-link-overlay {
+
+    }
+    .nest-link-content {
+
+        .hoverable {
+
+            cursor: pointer;
+        }
+    }
+}
+
+
+.nest-link-2 {
     position: relative;
     .nest-link-overlay {
         position: absolute;

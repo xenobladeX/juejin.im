@@ -1,7 +1,7 @@
 // sass
 import './index.scss';
 import '../../components/tooltip/tooltip.scss';
-import '../../sass/user-tooltip.scss';
+import '../../components/tooltip/user-tooltip/user-tooltip.scss';
 import '../../components/nest-link/nest-link.scss';
 import '../../../node_modules/ionicons/dist/scss/ionicons.scss';
 
@@ -22,16 +22,16 @@ import 'jsviews';
 import '../../components/dropload/dropload';
 import store from 'store';
 import 'owl.carousel';
+import { error } from 'util';
 
 $(document).ready(function () {
     var data = {
-        rencommendedEntryList: [],
+        recommendedEntryList: [],
         categoryEntryList: [],
         bookList: [],
         bannerList: []
     };
     var suid = null;
-    var isFirstLoad = true;
     var category = null;
     var entryListRequest = null;
 
@@ -77,28 +77,54 @@ $(document).ready(function () {
                         deferred.resolve($.isEmptyObject(get_recommended_entry_response.d) ? [] : get_recommended_entry_response.d);
                     }
                 }, (jqXHR, textStatus, errorThrown) => {
-                    console.warn('get recommended entry failed: ' + errorThrown);
-                    deferred.reject(errorThrown);
+                    if (errorThrown === 'abort') {
+                        // deferred.resolve([]);
+                    } else {
+                        console.warn('get recommended entry failed: ' + errorThrown);
+                        deferred.reject(errorThrown);
+                    }
+
                 });
             entryListRequest = xhr;
         }
         return deferred;
     }
 
+    // get categories
     var getCategoryEntry = (id, count = 20) => {
         var deferred = $.Deferred();
-        var xhr = $.getJSON(`/v1/get_entry_by_rank?src=web&limit=${count}&category=${id}`)
-            .then((get_category_entry_response, textStatus, jqXHR) => {
-                if (get_category_entry_response.m !== 'ok') {
-                    deferred.reject(new Error('get recommended entry response error: ' + get_category_entry_response.m));
-                } else {
-                    deferred.resolve($.isEmptyObject(get_category_entry_response.d) ? [] : get_category_entry_response.d);
-                }
-            }, (jqXHR, textStatus, errorThrown) => {
+        entryListRequest = $.getJSON(`/v1/get_entry_by_rank?src=web&limit=${count}&category=${id}`);
+        entryListRequest.then((get_category_entry_response, textStatus, jqXHR) => {
+            if (get_category_entry_response.m !== 'ok') {
+                deferred.reject(new Error('get category entry response error: ' + get_category_entry_response.m));
+            } else {
+                deferred.resolve($.isEmptyObject(get_category_entry_response.d.entrylist) ? [] : get_category_entry_response.d.entrylist);
+            }
+        }, (jqXHR, textStatus, errorThrown) => {
+            if (errorThrown === 'abort') {
+                // deferred.resolve([]);
+            } else {
                 console.warn('get category entry failed: ' + errorThrown);
                 deferred.reject(errorThrown);
-            });
-        entryListRequest = xhr;
+            }
+
+        })
+        return deferred;
+    }
+
+    var getCategories = () => {
+        var deferred = $.Deferred();
+        entryListRequest = $.getJSON('/v1/categories');
+        entryListRequest.then((get_categories_response, textStatus, jqXHR) => {
+            if (get_categories_response.m !== 'ok') {
+                deferred.reject(new Error('get categories response error: ' + get_categories_response.m));
+            } else {
+                deferred.resolve($.isEmptyObject(get_categories_response.d.categoryList) ? [] : get_categories_response.d.categoryList);
+            }
+        }, (jqXHR, textStatus, errorThrown) => {
+            console.warn('get categories failed: ' + errorThrown);
+            deferred.reject(errorThrown);
+        });
         return deferred;
     }
 
@@ -153,23 +179,24 @@ $(document).ready(function () {
 
     $('.nav-list .nav-item').click(function () {
         var needReload = false;
-        if ($(this).hasClass('active')) {
+        if (!$(this).hasClass('active')) {
             needReload = true;
         }
         $('.nav-list .nav-item').removeClass('active');
         $(this).addClass('active');
         if (needReload) {
             // clear another entry list
-            if (entryListRequest) {
+            if (entryListRequest.abort) {
                 entryListRequest.abort();
             }
             if ($(this).index() == 0) {
                 category = null;
-                $.observable(data.categoryEntryList).remove(0, data.categoryEntryList.length);
+
             } else {
                 category = $(this).prop("id");
-                $.observable(data.rencommendedEntryList).remove(0, data.rencommendedEntryList);
             }
+            $.observable(data.categoryEntryList).remove(0, data.categoryEntryList.length);
+            $.observable(data.recommendedEntryList).remove(0, data.recommendedEntryList.length);
 
             // reload entry list
             $('#entry-list').dropload('loadDown');
@@ -181,18 +208,26 @@ $(document).ready(function () {
     // 分类 文章列表
     categoryEntryListTemplate.link('#entry-list .category', data);
 
-    // Bind entry to user-tooltip
-    $.observe(data.rencommendedEntryList, function (event, eventArg) {
+    var entryListChange = (event, eventArg) => {
         if (eventArg.change === 'insert') {
+            // Bind entry to user-tooltip
             $(eventArg.items).each((index, element) => {
                 const instance = new Tooltip($(`#${element.objectId} .username [data-toggle="tooltip"]`), {
                     title: userTooltipTemplate.render(element.user),
                     html: true,
-                    boundariesElement: document.getElementsByClassName('entry-list')[0]
+                    delay: { show: 500, hide: 100 },
+                    boundariesElement: document.getElementsByClassName('view')[0]
                 });
             });
+
+            $('.nest-link .nest-link-content').click(function (e) {
+                e.preventDefault();
+                $(this).parent().find('.nest-link-overlay')[0].click();
+            });
         }
-    });
+    }
+    $.observe(data.recommendedEntryList, entryListChange);
+    $.observe(data.categoryEntryList, entryListChange);
 
     // 上拉加载更多
     $('#entry-list').dropload({
@@ -203,16 +238,15 @@ $(document).ready(function () {
                 if (category == null) { // 推荐列表
                     generateSuid().then(() => {
 
-                        return getRecommendedEntry(request => {
-                            entryListRequest = request;
-                        });
+                        return getRecommendedEntry();
                     }).done((entryList) => {
-                        $.observable(data.rencommendedEntryList).insert(entryList);
 
-                        dropload.endByNum(data.rencommendedEntryList.length);
+                        $.observable(data.recommendedEntryList).insert(entryList);
+
+                        dropload.endByNum(data.recommendedEntryList.length);
                     }).fail(err => {
                         console.warn('load recommended entry list failed: ' + err);
-                        dropload.endByNum(data.rencommendedEntryList.length);
+                        dropload.endByNum(data.recommendedEntryList.length);
                     });
 
                 } else {    // 分类列表

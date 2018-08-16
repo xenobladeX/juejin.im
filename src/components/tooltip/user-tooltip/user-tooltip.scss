@@ -1,6 +1,6 @@
-@import "../../sass/bootstrap/functions";
-@import "../../sass/bootstrap/variables";
-@import "../../sass/bootstrap/mixins";
+@import "../../../sass/bootstrap/functions";
+@import "../../../sass/bootstrap/variables";
+@import "../../../sass/bootstrap/mixins";
 
 .user-tooltip {
     padding: .99975rem .99975rem 1.37475rem;
@@ -30,10 +30,13 @@
                 font-size: 1.05rem;
                 line-height: 1.2;
                 font-weight: 500;
-                color: #333;
+                color: #2e3135;
                 white-space: nowrap;
                 overflow: hidden;
-                text-overflow: ellipsis
+                text-overflow: ellipsis;
+                &:hover {
+                    color: #2e3135;
+                }
             }
             .position {
                 margin: 1.125rem 0 0;

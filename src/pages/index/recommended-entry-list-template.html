@@ -1,8 +1,8 @@
 <ul class="entry-list">
-    {^{for rencommendedEntryList}}
+    {^{for recommendedEntryList}}
     <li class="item" id="{{:objectId}}">
         <div class="entry nest-link">
-            <a href="{{:originalUrl}}" class="entry-link nest-link-overlay"></a>
+            <a href="{{:originalUrl}}" class="nest-link-overlay" target="_blank"></a>
             <div class="content-box nest-link-content">
                 <div class="info-box">
                     <div class="title-row">
@@ -14,7 +14,7 @@
                                 <span class="category-title {{:category.title}}">{{:category.name}}</span>
                             </li>
                             <li class="item username">
-                                <a href="">{{:user.username}}</a>
+                                <a href="#" data-toggle="tooltip" target="_blank">{{:user.username}}</a>
                             </li>
                             <li class="item">3月前</li>
                             <li class="item">{{:viewsCount}} 次阅读</li>

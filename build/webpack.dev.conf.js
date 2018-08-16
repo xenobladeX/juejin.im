@@ -44,6 +44,11 @@ const webpackConfigDev = {
                 target: 'https://banner-storage-ms.juejin.im',
                 changeOrigin: true,
                 secure: false
+            },
+            '/v1/categories': {
+                target: 'https://gold-tag-ms.juejin.im',
+                changeOrigin: true,
+                secure: false
             }
         }
     },
