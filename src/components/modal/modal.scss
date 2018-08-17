@@ -1,0 +1,142 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+@import "../../sass/close.scss";
+
+
+// Kill the scroll on the body
+.modal-open {
+    overflow: hidden;
+}
+
+// Container that the modal scrolls within
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $zindex-modal;
+    display: none;
+    overflow: hidden;
+    // Prevent Chrome on Windows from adding a focus outline. For details, see github.com/twbs/bootstrap/pull/10951.
+    outline: 0; // We deliberately don't use `-webkit-overflow-scrolling: touch;` due to a
+    // gnarly iOS Safari bug: https://bugs.webkit.org/show_bug.cgi?id=158342
+    // See also https://github.com/twbs/bootstrap/issues/17695
+    .modal-open & {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+}
+
+.view {
+    .modal {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        display: block;
+    }
+}
+
+// Shell div to position the modal with bottom padding
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: $modal-dialog-margin; // allow clicks to pass through for custom click handling to close modal
+    pointer-events: none;
+    .modal.fade {
+        @include transition($modal-transition);
+        transform: translate(0, -25%);
+    }
+    .modal.show {
+        transform: translate(0, 0);
+    }
+}
+
+.modal-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: 50px;
+    height: 50px;
+    overflow: scroll;
+}
+
+  // Measure scrollbar width for padding body during modal show/hide
+.modal-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: 50px;
+    height: 50px;
+    overflow: scroll;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - (#{$modal-dialog-margin} * 2));
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: $modal-content-bg;
+    background-clip: padding-box;
+    border: $modal-content-border-width solid $modal-content-border-color;
+    @include border-radius($modal-content-border-radius);
+    @include box-shadow($modal-content-box-shadow-xs); // Remove focus outline from opened modal
+    outline: 0;
+}
+
+// Modal background
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $zindex-modal-backdrop;
+    background-color: $modal-backdrop-bg;
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: $modal-header-padding;
+    @include border-top-radius($modal-content-border-radius);
+    .close {
+        padding: $modal-header-padding;
+        // auto on the left force icon to the right even when there is no .modal-title
+        margin: (-$modal-header-padding) (-$modal-header-padding) (-$modal-header-padding) auto;
+      }
+}
+
+
+// Scale up the modal
+@include media-breakpoint-up(sm) {
+    // Automatically set modal's width for larger viewports
+    .modal-dialog {
+      max-width: $modal-md;
+      margin: $modal-dialog-margin-y-sm-up auto;
+    }
+
+    .modal-dialog-centered {
+      min-height: calc(100% - (#{$modal-dialog-margin-y-sm-up} * 2));
+    }
+
+    .modal-content {
+      @include box-shadow($modal-content-box-shadow-sm-up);
+    }
+
+    .modal-sm { max-width: $modal-sm; }
+
+  }
+
+  @include media-breakpoint-up(lg) {
+    .modal-lg { max-width: $modal-lg; }
+  }

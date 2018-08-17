@@ -91,7 +91,6 @@ $(document).ready(function () {
                     }
 
                 });
-            entryListRequest = xhr;
         }
         return deferred;
     }
