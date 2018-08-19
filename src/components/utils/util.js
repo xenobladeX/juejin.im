@@ -49,7 +49,7 @@ const Util = (($) => {
     // Public Util Api
 
     const Util = {
-        TRANSITION_END: 'bsTransitionEnd',
+        TRANSITION_END: 'xeTransitionEnd',
 
         getUID(prefix) {
             do {
