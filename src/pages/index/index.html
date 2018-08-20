@@ -48,8 +48,8 @@
                         <span>写文章</span>
                     </div>
                     <div class="auth">
-                        <span class="login">登录</span>
-                        <span class="regist">注册</span>
+                        <span class="login" data-toggle="modal" data-target="#loginModal">登录</span>
+                        <span class="regist" data-toggle="modal" data-target="#registModal">注册</span>
                     </div>
                 </div>
             </nav>
@@ -282,6 +282,36 @@
                 </aside>
             </div>
         </main>
+    </div>
+    <div class="modal fade" id="loginModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <span class="close" data-dismiss="modal" aria-label="Close">
+                        x
+                    </span>
+                </div>
+                <div class="modal-body">
+                    Please login
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="registModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Regist</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Please regist
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

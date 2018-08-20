@@ -1,4 +1,4 @@
-import '../../components/modal/modal.scss';
+import './modal.scss';
 
 import Util from '../utils/util';
 
@@ -100,7 +100,7 @@ const Modal = (($) => {
                 this._isTransitioning = true;
             }
 
-            const shwoEvent = $.Event(Event.SHOW, {
+            const showEvent = $.Event(Event.SHOW, {
                 relatedTarget
             });
 
@@ -256,8 +256,8 @@ const Modal = (($) => {
 
         _enforceFocus() {
             $(document).off(Event.FOCUSIN).on(Event.FOCUSIN, (event) => {
-                if (document !== evnet.target &&
-                    this._element !== evnet.target &&
+                if (document !== event.target &&
+                    this._element !== event.target &&
                     $(this._element).has(event.target).length === 0) {
                     this._element.focus();
                 }
@@ -279,7 +279,7 @@ const Modal = (($) => {
 
         _setResizeEvent() {
             if (this._isShown) {
-                $(window).on(Event.RESIZE, (evnet) => this.handleUpdate());
+                $(window).on(Event.RESIZE, (event) => this.handleUpdate());
             } else {
                 $(window).off(Event.RESIZE);
             }
@@ -336,7 +336,7 @@ const Modal = (($) => {
                     Util.reflow(this._backdrop);
                 }
 
-                $(this._dialog).addClass(ClassName.SHOW)
+                $(this._backdrop).addClass(ClassName.SHOW)
 
                 if (!callback) {
                     return;
@@ -466,8 +466,6 @@ const Modal = (($) => {
             document.body.removeChild(scrollDiv)
             return scrollbarWidth
         }
-
-
 
 
         // Static

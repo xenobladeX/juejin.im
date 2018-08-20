@@ -23,6 +23,7 @@ import '../../components/dropload/dropload';
 import store from 'store';
 import 'owl.carousel';
 import Util from '../../components/utils/util';
+import '../../components/modal/modal.js';
 
 $(document).ready(function () {
     var data = {
@@ -42,6 +43,7 @@ $(document).ready(function () {
     }
 
     // 模板
+    // TODO: use mustache
     let recommendedEntryListTemplate = $.templates(recommended_entry_list_template);
     let categoryEntryListTemplate = $.templates(category_entry_list_template);
     let userTooltipTemplate = $.templates(user_tooltip_template);
