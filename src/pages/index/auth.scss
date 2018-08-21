@@ -1,0 +1,87 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+.auth-form {
+    position: relative;
+    max-width: 100%;
+    font-size: .75rem;
+    background-color: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;
+    .input-group {
+        margin-bottom: .5rem;
+        overflow: hidden;
+        .input-box {
+            position: relative;
+            margin-bottom: .6rem;
+            .input {
+                padding: .625rem;
+                width: 100%;
+                border: 1px solid #e9e9e9;
+                border-radius: 2px;
+                outline: none;
+                box-sizing: border-box;
+            }
+        }
+    }
+    .btn {
+        width: 100%;
+        height: 2.5005rem;
+        color: #fff;
+        background-color: #007fff;
+        border-radius: 2px;
+        outline: none;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+    .prompt-box {
+        margin: .75rem 0 0;
+        color: #8b9196;
+        font-size: .8rem;
+        &.center {
+            text-align: center;
+        }
+        .regist {
+            color: #007fff;
+            cursor: pointer;
+        }
+        .forget {
+            color: #007fff;
+            cursor: pointer;
+            float: right;
+        }
+        .login {
+            color: #007fff;
+            cursor: pointer;
+        }
+    }
+    .oauth-box {
+        margin-top: .9rem;
+        line-height: 1;
+        color: #8b9196;
+        .hint {
+
+        }
+        .oauth {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 1rem;
+            .oauth-bg {
+                width: 2.8125rem;
+                height: 2.8125rem;
+                border-radius: 50%;
+                background-color: #f4f8fb;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .oauth-btn {
+                    height: 1.425rem;
+                    vertical-align: bottom;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+}

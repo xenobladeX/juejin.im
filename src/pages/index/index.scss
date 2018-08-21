@@ -3,6 +3,7 @@
 
 @import './entry.scss';
 @import './aside.scss';
+@import './auth.scss';
 
 
 main {
@@ -25,11 +26,18 @@ main {
                     font-weight: 500;
                 }
                 .more {
+                    font-size: .75rem;
                     display: none;
+                    @include media-breakpoint-down(sm) {
+                        display: block;
+                    }
                 }
                 .nav-list {
                     display: flex;
                     align-items: center;
+                    @include media-breakpoint-down(sm) {
+                        display: none;
+                    }
                     .nav-item {
                         color: #90979c;
                         margin-right: 1.25rem;

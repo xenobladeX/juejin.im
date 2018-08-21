@@ -284,31 +284,90 @@
         </main>
     </div>
     <div class="modal fade" id="loginModal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
+                    <h3 class="modal-title">登录</h3>
                     <span class="close" data-dismiss="modal" aria-label="Close">
                         x
                     </span>
                 </div>
                 <div class="modal-body">
-                    Please login
+                    <form class="auth-form">
+                        <div class="input-group">
+                            <div class="input-box">
+                                <input type="text" maxlength="64" placeholder="请输入手机号或邮箱" class="input">
+                            </div>
+                            <div class="input-box">
+                                <input type="password" max="64" placeholder="请输入密码" class="input">
+                            </div>
+                        </div>
+                        <button class="btn">登录</button>
+                        <div class="prompt-box">
+                            没有帐号？
+                            <span class="regist">注册</span>
+                            <a href="#" class="forget">忘记密码</a>
+                        </div>
+                        <div class="oauth-box">
+                            <div class="hint">第三方账号登录：</div>
+                            <div class="oauth">
+                                <div class="oauth-bg">
+                                    <img src="../../images/weibo.svg" alt="微博" class="oauth-btn">
+                                </div>
+                                <div class="oauth-bg">
+                                    <img src="../../images/wechat.svg" alt="微信" class="oauth-btn">
+                                </div>
+                                <div class="oauth-bg">
+                                    <img src="../../images/github.svg" alt="Github" class="oauth-btn">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal fade" id="registModal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Regist</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span>x</span>
-                    </button>
+                    <h3 class="modal-title">注册</h3>
+                    <span class="close" data-dismiss="modal" aria-label="Close">
+                        x
+                    </span>
                 </div>
                 <div class="modal-body">
-                    Please regist
+                        <form class="auth-form">
+                                <div class="input-group">
+                                    <div class="input-box">
+                                        <input type="text" maxlength="64" placeholder="请输入用户名" class="input">
+                                    </div>
+                                    <div class="input-box">
+                                        <input type="tel" max="64" placeholder="请输入手机号" class="input">
+                                    </div>
+                                    <div class="input-box">
+                                            <input type="password" max="64" placeholder="请输入密码（不少于6位）" class="input">
+                                        </div>
+                                </div>
+                                <button class="btn">注册</button>
+                                <div class="prompt-box center">
+                                    <span class="login">已有帐号登录</span>
+                                </div>
+                                <div class="oauth-box">
+                                    <div class="hint">第三方账号登录：</div>
+                                    <div class="oauth">
+                                        <div class="oauth-bg">
+                                            <img src="../../images/weibo.svg" alt="微博" class="oauth-btn">
+                                        </div>
+                                        <div class="oauth-bg">
+                                            <img src="../../images/wechat.svg" alt="微信" class="oauth-btn">
+                                        </div>
+                                        <div class="oauth-bg">
+                                            <img src="../../images/github.svg" alt="Github" class="oauth-btn">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                 </div>
             </div>
         </div>

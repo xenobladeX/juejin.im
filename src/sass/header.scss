@@ -9,6 +9,7 @@ header {
     background-color: #fff;
     border-bottom: 1px solid #f1f1f1;
     font-size: 1rem;
+    height: 3.75rem;
     &.fixed {
         position: sticky;
         position: -webkit-sticky;
@@ -21,10 +22,15 @@ header {
         display: flex;
         justify-content: start;
         align-items: center;
-        padding: .7rem 0;
+        height: 100%;
+        &.container {
+            @include media-breakpoint-down(md) {
+                width: 96%;
+            }
+        }
+
         .logo {
             display: inline-block;
-            margin-right: 1.5rem;
         }
         .active {
             a {
@@ -35,6 +41,20 @@ header {
             display: flex;
             flex-basis: auto;
             flex-grow: 1;
+            align-items: center;
+            height: 100%;
+            .collapse-dropdown {
+                height: 100%;
+                .dropdown-toggle {
+                    height: 100%;
+                }
+                .collapse-menue {
+                    height: 100%;
+                    @include media-breakpoint-down(md) {
+                        height: auto;
+                    }
+                }
+            }
         }
         .search-form {
             border: 1px solid hsla(0, 0%, 59%, .2);

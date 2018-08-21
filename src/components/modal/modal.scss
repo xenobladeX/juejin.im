@@ -3,6 +3,7 @@
 @import "../../sass/bootstrap/mixins";
 @import "../../sass/close.scss";
 
+$modal-md: 19.875rem;
 
 // Kill the scroll on the body
 .modal-open {
@@ -102,11 +103,11 @@
     z-index: $zindex-modal-backdrop;
     background-color: $modal-backdrop-bg;
 
-    &.fade { 
-        opacity: 0; 
+    &.fade {
+        opacity: 0;
     }
-    &.show { 
-        opacity: $modal-backdrop-opacity; 
+    &.show {
+        opacity: $modal-backdrop-opacity;
     }
 }
 
@@ -121,6 +122,13 @@
         // auto on the left force icon to the right even when there is no .modal-title
         margin: (-$modal-header-padding) (-$modal-header-padding) (-$modal-header-padding) auto;
       }
+}
+
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+
+    padding: $modal-header-padding;
 }
 
 

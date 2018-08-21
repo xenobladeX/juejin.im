@@ -33,6 +33,7 @@
 .collapse-menue {
     display: flex;
     flex-direction: row;
+    align-items: center;
     @include media-breakpoint-down(md) {
         position: absolute;
         display: none;
@@ -52,6 +53,5 @@
         margin: 0.5rem 1rem;
         text-align: center;
         white-space: nowrap;
-        display: block;
     }
 }
