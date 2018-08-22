@@ -275,14 +275,14 @@ $(document).ready(function () {
     });
 
     // Modal
-    $('#loginModal .regist').click( () => {
-        $('#loginModal').modal('hide');
-        $('#registModal').modal('show');
-    });
-    $('#registModal .login').click( () => {
-        $('#registModal').modal('hide');
-        $('#loginModal').modal('show');
-    });
+    // $('#loginModal .regist').click( () => {
+    //     $('#loginModal').modal('hide');
+    //     $('#registModal').modal('show');
+    // });
+    // $('#registModal .login').click( () => {
+    //     $('#registModal').modal('hide');
+    //     $('#loginModal').modal('show');
+    // });
 
     // 小册子
     getBookList().done(bookList => {

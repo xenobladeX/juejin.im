@@ -1,5 +1,6 @@
 import './modal.scss';
 
+import './modals';
 import Util from '../utils/util';
 
 
@@ -111,6 +112,19 @@ const Modal = (($) => {
             }
 
             this._isShown = true;
+
+            if(modals.isEmpty()) {
+                // show current modal
+                modals.push(this);
+            } else {
+                // only modal dialog
+                preModal = modals.pop();
+                // hide pre modal(dialog)
+
+                // show current modal(dialog)
+                modals.push(this);
+
+            }
 
             this._checkScrollbar();
             this._setScrollbar();
