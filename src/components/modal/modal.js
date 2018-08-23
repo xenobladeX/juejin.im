@@ -1,6 +1,3 @@
-import './modal.scss';
-
-import './modals';
 import Util from '../utils/util';
 
 
@@ -23,14 +20,14 @@ const Modal = (($) => {
         backdrop: true,
         keyboard: true,
         focus: true,
-        show: true
+        show: true,
     };
 
     const DefaultType = {
         backdrop: '(boolean|string)',
         keyboard: 'boolean',
         focus: 'boolean',
-        show: 'boolean'
+        show: 'boolean',
     };
 
     const Event = {
@@ -112,19 +109,6 @@ const Modal = (($) => {
             }
 
             this._isShown = true;
-
-            if(modals.isEmpty()) {
-                // show current modal
-                modals.push(this);
-            } else {
-                // only modal dialog
-                preModal = modals.pop();
-                // hide pre modal(dialog)
-
-                // show current modal(dialog)
-                modals.push(this);
-
-            }
 
             this._checkScrollbar();
             this._setScrollbar();
@@ -481,7 +465,6 @@ const Modal = (($) => {
             return scrollbarWidth
         }
 
-
         // Static
 
         static _jQueryInterface(config, relatedTarget) {
@@ -516,53 +499,40 @@ const Modal = (($) => {
      * Data Api implementation
      * ------------------------------------------------------------------------
      */
-    $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
-        let target;
-        const selector = Util.getSelectorFromElement(this);
+    // $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
+    //     let target;
+    //     const selector = Util.getSelectorFromElement(this);
 
-        if (selector) {
-            target = $(selector)[0];
-        }
+    //     if (selector) {
+    //         target = $(selector)[0];
+    //     }
 
-        const config = $(target).data(DATA_KEY)
-            ? 'toggle' : {
-                ...$(target).data(),
-                ...$(this).data()
-            };
+    //     const config = $(target).data(DATA_KEY)
+    //         ? 'toggle' : {
+    //             ...$(target).data(),
+    //             ...$(this).data()
+    //         };
 
-        if (this.tagName === 'A' || this.tagName === 'AREA') {
-            event.preventDefault();
-        }
+    //     if (this.tagName === 'A' || this.tagName === 'AREA') {
+    //         event.preventDefault();
+    //     }
 
-        const $target = $(target).one(Event.SHOW, (showEvent) => {
-            if (showEvent.isDefaultPrevented()) {
-                // Only register focus restorer if modal will actually get shown
-                return;
-            }
+    //     const $target = $(target).one(Event.SHOW, (showEvent) => {
+    //         if (showEvent.isDefaultPrevented()) {
+    //             // Only register focus restorer if modal will actually get shown
+    //             return;
+    //         }
 
-            $target.one(Event.HIDDEN, () => {
-                if ($(this).is(':visible')) {
-                    this.focus();
-                }
-            })
-        })
+    //         $target.one(Event.HIDDEN, () => {
+    //             if ($(this).is(':visible')) {
+    //                 this.focus();
+    //             }
+    //         })
+    //     })
+    //     console.log('test');
+    //     Modal._jQueryInterface.call($(target), config, this);
 
-        Modal._jQueryInterface.call($(target), config, this);
-
-    });
-
-    /**
-     * ------------------------------------------------------------------------
-     * jQuery
-     * ------------------------------------------------------------------------
-     */
-
-    $.fn[NAME] = Modal._jQueryInterface
-    $.fn[NAME].Constructor = Modal
-    $.fn[NAME].noConflict = function () {
-        $.fn[NAME] = JQUERY_NO_CONFLICT
-        return Modal._jQueryInterface
-    }
+    // });
 
     return Modal;
 

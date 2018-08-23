@@ -23,7 +23,7 @@ import '../../components/dropload/dropload';
 import store from 'store';
 import 'owl.carousel';
 import Util from '../../components/utils/util';
-import '../../components/modal/modal.js';
+import '../../components/modal/modals.js';
 
 $(document).ready(function () {
     var data = {
