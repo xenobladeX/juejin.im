@@ -74,7 +74,6 @@ const Modals = (($) => {
             this._modalStack = [];
         }
 
-
         static Config() {
             return Config;
         }
@@ -86,65 +85,28 @@ const Modals = (($) => {
         }
 
         show(modal, relatedTarget) {
-            console.log(modal, relatedTarget);
 
+            if (this._isEmpty()) {
+                // show modal
+                this._push(modal);
+                // backdrop
+                this._checkScrollbar();
+                this._setScrollbar();
 
-            if(this._isEmpty()) {
+                $(document.body).addClass(ClassName.OPEN);
+
+                this._showBackdrop(() => modal.show(relatedTarget));
 
             } else {
                 // hide pre modal dialog
-                var preModal = this._first();
+                var preModal = this._current();
                 preModal.hide();
+                this._pop();
 
                 // show current modal dialog
-                modal.show();
+                this._push(modal);
+                modal.show(relatedTarget);
             }
-        }
-
-        _show(relatedTarget) {
-            if (this._isTransitioning || this._isShown) {
-                return;
-            }
-
-            if ($(this._element).hasClass(ClassName.FADE)) {
-                this._isTransitioning = true;
-            }
-
-            const showEvent = $.Event(Event.SHOW, {
-                relatedTarget
-            });
-
-            $(this._element).trigger(showEvent);
-
-            if (this._isShown || showEvent.isDefaultPrevented()) {
-                return;
-            }
-
-            this._isShown = true;
-
-            this._checkScrollbar();
-            this._setScrollbar();
-
-            this._adjustDialog();
-
-            $(document.body).addClass(ClassName.OPEN);
-
-            // this._setEscapeEvent();
-            this._setResizeEvent();
-
-            $(this._element).on(Event.CLICK_DISMISS,
-                Selector.DATA_DISMISS,
-                (event) => this.hide(event));
-
-            $(this._dialog).on(Event.MOUSEDOWN_DISMISS, () => {
-                $(this._element).one(Event.MOUSEUP_DISMISS, (event) => {
-                    if ($(event.target).is(this._element)) {
-                        this._ignoreBackdropClick = true;
-                    }
-                })
-            });
-
-            this._showBackdrop(() => this._showElement(relatedTarget));
         }
 
         hide(event) {
@@ -152,58 +114,36 @@ const Modals = (($) => {
                 event.preventDefault();
             }
 
-            if (this._isTransitioning || !this._isShown) {
+            const modal = this._current();
+
+            if (this._isEmpty()) {
                 return;
-            }
+            } else if (this._modalStack.length == 1) {
+                // hide modal
 
-            const hideEvent = $.Event(Event.HIDE);
+                $(document).off(Event.FOCUSIN);
 
-            $(this._element).trigger(hideEvent);
-
-            if (!this._isShown || hideEvent.isDefaultPrevented()) {
-                return;
-            }
-
-            this._isShown = false;
-            const transition = $(this._element).hasClass(ClassName.FADE);
-
-            if (transition) {
-                this._isTransitioning = true;
-            }
-
-            this._setEscapeEvent();
-            this._setResizeEvent();
-
-            $(document).off(Event.FOCUSIN);
-
-            $(this._element).removeClass(ClassName.SHOW);
-
-            $(this._element).off(Event.CLICK_DISMISS);
-            $(this._element).off(Event.MOUSEDOWN_DISMISS);
-
-            if (transition) {
-                const transitionDuration = Util.getTransitionDurationFromElement(this._element);
-
-                $(this._element).one(Util.TRANSITION_END, (event) => this._hideModal(event))
-                    .emulateTransitionEnd(transitionDuration);
+                modal.hide((event) => {
+                    this._pop();
+                    this._hideModal()
+                });
             } else {
-                this._hideModal();
+                modal.hide((event) => {
+                    this._pop();
+                });
             }
         }
 
         dispose() {
-            $.removeData(this._element, DATA_KEY);
-
-            $(window, document, this._element, this._backdrop).off(EVENT_KEY);
+            $(window, document, this._backdrop).off(EVENT_KEY);
 
             this._config = null;
-            this._element = null;
-            this._dialog = null;
             this._backdrop = null;
-            this._isShown = null;
             this._isBodyOverflowing = null;
             this._ignoreBackdropClick = null;
             this._scrollbarWidth = null;
+
+            instance = null;
         }
 
         handleUpdate() {
@@ -212,89 +152,11 @@ const Modals = (($) => {
 
         // Private
 
-        _showElement(relatedTarget) {
-            const transition = $(this._element).hasClass(ClassName.FADE);
+        _hideModal(event) {
 
-            if (!this._element.parendNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
-                document.body.appendChild(this._element);
-            }
-
-            this._element.style.display = 'block';
-            this._element.removeAttribute('aria-hidden');
-            this._element.scrollTop = 0;
-
-            if (transition) {
-                Util.reflow(this._element);
-            }
-
-            $(this._element).addClass(ClassName.SHOW);
-
-            if (this._config.focus) {
-                this._enforceFocus();
-            }
-
-            const showEvent = $.Event(Event.SHOWN, {
-                relatedTarget
-            });
-
-            const transitionComplete = () => {
-                if (this._config.focus) {
-                    this._element.focus();
-                }
-                this._isTransitioning = false;
-                $(this._element).trigger(showEvent);
-            };
-
-            if (transition) {
-                const transitionDuration = Util.getTransitionDurationFromElement(this._element);
-
-                $(this._dialog).on(Util.TRANSITION_END, transitionComplete)
-                    .emulateTransitionEnd(transitionDuration);
-            } else {
-                transitionComplete();
-            }
-        }
-
-        _enforceFocus() {
-            $(document).off(Event.FOCUSIN).on(Event.FOCUSIN, (event) => {
-                if (document !== event.target &&
-                    this._element !== event.target &&
-                    $(this._element).has(event.target).length === 0) {
-                    this._element.focus();
-                }
-            });
-        }
-
-        _setEscapeEvent() {
-            if (this._isShown && this._config.keyboard) {
-                $(this._element).on(Event.KEYDOWN_DISMISS, (event) => {
-                    if (event.which === ESCAPE_KEYCODE) {
-                        event.preventDefault();
-                        this.hide();
-                    }
-                });
-            } else if (!this._isShown) {
-                $(this._element).off(Event.KEYDOWN_DISMISS);
-            }
-        }
-
-        _setResizeEvent() {
-            if (this._isShown) {
-                $(window).on(Event.RESIZE, (event) => this.handleUpdate());
-            } else {
-                $(window).off(Event.RESIZE);
-            }
-        }
-
-        _hideModal() {
-            this._element.style.display = 'none';
-            this._element.setAttribute('aria-hidden', true);
-            this._isTransitioning = false;
-            this._showBackdrop(() => {
+            this._hideBackdrop(() => {
                 $(document.body).removeClass(ClassName.OPEN);
-                this._resetAdustments();
                 this._resetScrollbar();
-                $(this._element).trigger(Event.HIDDEN);
             });
         }
 
@@ -306,51 +168,32 @@ const Modals = (($) => {
         }
 
         _showBackdrop(callback) {
-            const animate = $(this._element).hasClass(ClassName.FADE) ? ClassName.FADE : '';
 
-            if (this._isShown && this._config.backdrop) {
+            if (this._config.backdrop) {
                 this._backdrop = document.createElement('div');
                 this._backdrop.className = ClassName.BACKDROP;
 
-                if (animate) {
-                    $(this._backdrop).addClass(animate);
-                }
+                $(this._backdrop).addClass(ClassName.FADE);
 
                 $(this._backdrop).appendTo(document.body);
-
-                $(this._element).on(Event.CLICK_DISMISS, (event) => {
-                    if (this._ignoreBackdropClick) {
-                        this._ignoreBackdropClick = false;
-                        return;
-                    }
-                    if (event.target !== event.currentTarget) {
-                        return;
-                    }
-                    if (this._config.backdrop === 'static') {
-                        this._element.focus();
-                    } else {
-                        this.hide();
-                    }
-                });
-
-                if (animate) {
-                    Util.reflow(this._backdrop);
-                }
 
                 $(this._backdrop).addClass(ClassName.SHOW)
 
                 if (!callback) {
                     return;
                 }
-                if (!animate) {
-                    callback();
-                    return;
-                }
+
                 const backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
 
                 $(this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(backdropTransitionDuration);
 
-            } else if (!this._isShown && this._backdrop) {
+            } else if (callback) {
+                callback();
+            }
+        }
+
+        _hideBackdrop(callback) {
+            if (this._backdrop) {
                 $(this._backdrop).removeClass(ClassName.SHOW);
 
                 const callbackRemove = () => {
@@ -360,41 +203,19 @@ const Modals = (($) => {
                     }
                 }
 
-                if ($(this._element).hasClass(ClassName.FADE)) {
-                    const backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop)
+                const backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop)
 
-                    $(this._dialog).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(backdropTransitionDuration);
-                } else {
-                    callbackRemove();
-                }
+                $(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(backdropTransitionDuration);
             } else if (callback) {
                 callback();
             }
+
         }
 
         // ----------------------------------------------------------------------
         // the following methods are used to handle overflowing modals
         // todo (fat): these should probably be refactored out of modal.js
         // ----------------------------------------------------------------------
-
-
-        _adjustDialog() {
-            const isModalOverflowing =
-                this._element.scrollHeight > document.documentElement.clientHeight;
-
-            if (!this._isBodyOverflowing && isModalOverflowing) {
-                this._element.style.paddingLeft = `${this._scrollbarWidth}px`;
-            }
-
-            if (this._isBodyOverflowing && !isModalOverflowing) {
-                this._element.style.paddingRight = `${this._scrollbarWidth}px`;
-            }
-        }
-
-        _resetAdustments() {
-            this._element.style.paddingLeft = '';
-            this._element.style.paddingRight = '';
-        }
 
         _checkScrollbar() {
             const rect = document.body.getBoundingClientRect();
@@ -468,36 +289,34 @@ const Modals = (($) => {
             return scrollbarWidth
         }
 
-
         // Stack
         _pop() {
-            if (this.config.mode === 'normal') {
-                return modalStack.shift();
+            if (Config.mode === 'normal') {
+                return this._modalStack.shift();
             } else {
-                return modalStack.pop();
+                return this._modalStack.pop();
             }
         }
 
-        _push() {
-            if (this.config.mode === 'normal') {
-                modalStack.push(modal);
+        _push(modal) {
+            if (Config.mode === 'normal') {
+                this._modalStack.push(modal);
             } else {
 
             }
         }
 
-        _first() {
-            return modalStack[0];
-        }
-
-        _last() {
-            return modalStack[modalStack.length - 1];
+        _current() {
+            if (Config.mode === 'normal') {
+                return this._modalStack[this._modalStack.length - 1];
+            } else {
+                return this._modalStack[0];
+            }
         }
 
         _isEmpty() {
-            return modalStack.length == 0;
+            return this._modalStack.length == 0;
         }
-
 
         // Static
 
