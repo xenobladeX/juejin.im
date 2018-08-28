@@ -8,6 +8,27 @@
     background-color: #fff;
     border-radius: 2px;
     box-sizing: border-box;
+    .panfish {
+
+        .normal, .greeting, .blindfold {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            z-index: 1;
+        }
+        .normal {
+            width: 7.5rem;
+            transform: translate(-50%, -170%);
+        }
+        .greeting {
+            width: 7.5rem;
+            transform: translate(-50%, -150%);
+        }
+        .blindfold {
+            width: 6.45rem;
+            transform: translate(-50%, -170%);
+        }
+    }
     .input-group {
         margin-bottom: .5rem;
         overflow: hidden;

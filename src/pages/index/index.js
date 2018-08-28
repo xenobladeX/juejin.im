@@ -274,15 +274,23 @@ $(document).ready(function () {
         // }
     });
 
-    // Modal
-    // $('#loginModal .regist').click( () => {
-    //     $('#loginModal').modal('hide');
-    //     $('#registModal').modal('show');
-    // });
-    // $('#registModal .login').click( () => {
-    //     $('#registModal').modal('hide');
-    //     $('#loginModal').modal('show');
-    // });
+    // login Modal
+    $('#loginModal .input-group input[type="text"]').focus(() => {
+        $('#loginModal .panfish .normal').hide();
+        $('#loginModal .panfish .greeting').show();
+        $('#loginModal .panfish .blindfold').hide();
+    });
+    $('#loginModal .input-group input[type="password"]').focus(() => {
+        $('#loginModal .panfish .normal').hide();
+        $('#loginModal .panfish .greeting').hide();
+        $('#loginModal .panfish .blindfold').show();
+    });
+
+    $('#loginModal .input-group input').blur(() => {
+        $('#loginModal .panfish .normal').show();
+        $('#loginModal .panfish .greeting').hide();
+        $('#loginModal .panfish .blindfold').hide();
+    });
 
     // 小册子
     getBookList().done(bookList => {
