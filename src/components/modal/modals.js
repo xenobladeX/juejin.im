@@ -331,7 +331,6 @@ const Modals = (($) => {
             return this.each(function () {
                 let data = $(this).data(DATA_KEY)
                 const _config = {
-                    // ...Default,
                     ...$(this).data(),
                     ...typeof config === 'object' && config ? config : {}
                 }
@@ -366,8 +365,7 @@ const Modals = (($) => {
             target = $(selector)[0];
         }
 
-        const config = $(target).data(DATA_KEY)
-            ? 'toggle' : {
+        const config = {
                 ...$(target).data(),
                 ...$(this).data()
             };
