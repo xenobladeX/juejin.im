@@ -1,0 +1,18 @@
+@import '../../sass/normal.scss';
+@import '../../sass/header.scss';
+
+@import './aside.scss';
+
+
+main {
+    z-index: 0;
+    .view {
+        margin-top: 1.325rem;
+        display: flex;
+        .pin-container {
+            flex-grow: 1;
+            overflow: hidden;
+
+        }
+    }
+}

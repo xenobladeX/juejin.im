@@ -1,3 +1,5 @@
+import './modal.scss';
+
 import Modals from './modals.js';
 
 import Util from '../utils/util';

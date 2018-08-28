@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>沸点 - 掘金</title>
+</head>
+
+<body>
+    <div class="first-container">
+        <header class="fixed">
+            <nav class="container">
+                <a href="/" class="logo">
+                    <img src="../../images/logo.svg" alt="掘金">
+                </a>
+                <div class="nav-conainer">
+
+                    <div class="collapse-dropdown">
+                        <div class="dropdown-toggle active" data-toggle="collapse-dropdown">
+                            <a href="javascript:void(0)">沸点</a>
+                        </div>
+                        <ul class="collapse-menue">
+                            <li class="collapse-item">
+                                <a href="/">首页</a>
+                            </li>
+                            <li class="collapse-item active">
+                                <a href="#">沸点</a>
+                            </li>
+                            <li class="collapse-item">
+                                <a href="#">小册</a>
+                            </li>
+                            <li class="collapse-item">
+                                <a href="#">开源库</a>
+                            </li>
+                            <li class="collapse-item">
+                                <a href="#">活动</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <form role="search" class="search-form">
+                        <input maxlength="32" placeholder="搜索掘金" class="search-input">
+                        <img src="../../images/search.svg" alt="搜索掘金">
+                    </form>
+                    <div class="write">
+                        <img src="../../images/write.svg" alt="写文章" class="icon">
+                        <span>写文章</span>
+                    </div>
+                    <div class="auth">
+                        <span class="login" data-toggle="modal" data-target="#loginModal">登录</span>
+                        <span class="regist" data-toggle="modal" data-target="#registModal">注册</span>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="container">
+            <div class="view">
+                <div class="pin-container">
+
+                </div>
+                <aside class="pin-side">
+                    <section class="auth-section">
+                        aside
+                    </section>
+                </aside>
+            </div>
+        </main>
+    </div>
+    <div class="modal fade" id="loginModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">登录</h3>
+                    <span class="close" data-dismiss="modal" aria-label="Close">
+                        ×
+                    </span>
+                </div>
+                <div class="modal-body">
+                    <form class="auth-form">
+                        <div class="panfish">
+                            <img src="https://b-gold-cdn.xitu.io/v3/static/img/normal.0447fe9.png" alt="" class="normal">
+                            <img src="https://b-gold-cdn.xitu.io/v3/static/img/greeting.1415c1c.png" alt="" class="greeting" style="display: none;">
+                            <img src="https://b-gold-cdn.xitu.io/v3/static/img/blindfold.58ce423.png" alt="" class="blindfold" style="display: none;">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-box">
+                                <input type="text" maxlength="64" placeholder="请输入手机号或邮箱" class="input">
+                            </div>
+                            <div class="input-box">
+                                <input type="password" max="64" placeholder="请输入密码" class="input">
+                            </div>
+                        </div>
+                        <button class="btn">登录</button>
+                        <div class="prompt-box">
+                            没有帐号？
+                            <span class="regist" data-toggle="modal" data-target="#registModal">注册</span>
+                            <a href="#" class="forget">忘记密码</a>
+                        </div>
+                        <div class="oauth-box">
+                            <div class="hint">第三方账号登录：</div>
+                            <div class="oauth">
+                                <div class="oauth-bg">
+                                    <img src="../../images/weibo.svg" alt="微博" class="oauth-btn">
+                                </div>
+                                <div class="oauth-bg">
+                                    <img src="../../images/wechat.svg" alt="微信" class="oauth-btn">
+                                </div>
+                                <div class="oauth-bg">
+                                    <img src="../../images/github.svg" alt="Github" class="oauth-btn">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="registModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">注册</h3>
+                    <span class="close" data-dismiss="modal" aria-label="Close">
+                        ×
+                    </span>
+                </div>
+                <div class="modal-body">
+                    <form class="auth-form">
+                        <div class="input-group">
+                            <div class="input-box">
+                                <input type="text" maxlength="64" placeholder="请输入用户名" class="input">
+                            </div>
+                            <div class="input-box">
+                                <input type="tel" max="64" placeholder="请输入手机号" class="input">
+                            </div>
+                            <div class="input-box">
+                                <input type="password" max="64" placeholder="请输入密码（不少于6位）" class="input">
+                            </div>
+                        </div>
+                        <button class="btn">注册</button>
+                        <div class="prompt-box center">
+                            <span class="login" data-toggle="modal" data-target="#loginModal">已有帐号登录</span>
+                        </div>
+                        <div class="oauth-box">
+                            <div class="hint">第三方账号登录：</div>
+                            <div class="oauth">
+                                <div class="oauth-bg">
+                                    <img src="../../images/weibo.svg" alt="微博" class="oauth-btn">
+                                </div>
+                                <div class="oauth-bg">
+                                    <img src="../../images/wechat.svg" alt="微信" class="oauth-btn">
+                                </div>
+                                <div class="oauth-bg">
+                                    <img src="../../images/github.svg" alt="Github" class="oauth-btn">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

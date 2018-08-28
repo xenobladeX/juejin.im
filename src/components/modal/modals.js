@@ -1,4 +1,3 @@
-import './modal.scss';
 
 import Modal from './modal.js';
 import Util from '../utils/util';

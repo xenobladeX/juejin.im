@@ -1,0 +1,13 @@
+@import "../../sass/bootstrap/functions";
+@import "../../sass/bootstrap/variables";
+@import "../../sass/bootstrap/mixins";
+
+.pin-side {
+    width: 15rem;
+    min-width: 15rem;
+    margin-left: 1.5rem;
+    @include media-breakpoint-down(md) {
+        display: none;
+    }
+
+}

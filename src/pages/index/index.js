@@ -4,6 +4,7 @@ import '../../components/tooltip/tooltip.scss';
 import '../../components/tooltip/user-tooltip/user-tooltip.scss';
 import '../../components/nest-link/nest-link.scss';
 import '../../../node_modules/ionicons/dist/scss/ionicons.scss';
+import '../../components/modal/auth-modal.scss';
 
 // css
 import 'owl.carousel/dist/assets/owl.carousel.css';
