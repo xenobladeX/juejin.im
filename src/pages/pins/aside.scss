@@ -69,13 +69,24 @@
     }
     .slide-section {
         position: relative;
-        height: 9rem;
         background-color: #fff;
         overflow: hidden;
         .slide-item {
             width: 100%;
-            height: 100%;
             background-color: transparent;
+            .link {
+                .thumb {
+                    flex: 0 0 auto;
+                    width: 100%;
+                    height: 9rem;
+                    background-position: 50%;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    border-radius: 2px;
+                    box-shadow: 0 1px 3px 0 rgba(0,0,0, .05);
+                    image-rendering: pixelated;
+                }
+            }
         }
     }
 

@@ -52,7 +52,8 @@ $(document).ready(function () {
         var owl = $('.slide-section .owl-carousel');
         owl.owlCarousel({
             items: 1,
-            loop: true
+            loop: true,
+            dots: true,
         });
     })
 
