@@ -49,7 +49,24 @@ const webpackConfigDev = {
                 target: 'https://gold-tag-ms.juejin.im',
                 changeOrigin: true,
                 secure: false
+            },
+            '/v1/topicList': {
+                target: 'https://short-msg-ms.juejin.im',
+                changeOrigin: true,
+                secure: false
+            },
+            '/v1/web/page/': {
+                target: 'https://banner-storage-ms.juejin.im',
+                changeOrigin: true,
+                secure: false
+            },
+            '/v1/pinList/': {
+                target: 'https://short-msg-ms.juejin.im',
+                changeOrigin: true,
+                secure: false
             }
+
+
         }
     },
     plugins: [
