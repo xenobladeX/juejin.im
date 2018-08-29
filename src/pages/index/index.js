@@ -34,7 +34,6 @@ $(document).ready(function () {
         bannerList: []
     };
     var category = null;
-    var entryListRequest = null;
     const userTooltipHelper = {
         position: Util.position,
     };

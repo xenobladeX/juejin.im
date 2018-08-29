@@ -1,0 +1,13 @@
+<ul class="topic-list">
+    {{for topicList}}
+    <li>
+        <div class="topic-item">
+            <div class="icon" style="background-image: url({{:icon}});"></div>
+            <div class="content">
+                <span>{{:title}}</span>
+                <span>{{:followersCount}} 关注 · {{:msgsCount}} 沸点</span>
+            </div>
+        </div>
+    </li>
+    {{/for}}
+</ul>

@@ -126,7 +126,7 @@ const Api = (($) => {
                 });
             return deferred;
         },
-        getTopicList() {
+        getTopicList(num) {
             var deferred = $.Deferred();
             $.getJSON('/v1/topicList/recommend?uid=&device_id=&token=&src=web')
             .then(get_topicList_response => {
@@ -134,7 +134,11 @@ const Api = (($) => {
                     deferred.reject(new Error('get topic list error: ' + get_topicList_response.m))
                 } else {
                     var topicList = get_topicList_response.d.list;
-                    deferred.resolve($.isEmptyObject(topicList) ? [] : topicList);
+                    topicList = $.isEmptyObject(topicList) ? [] : topicList
+                    if(topicList.length >= num) {
+                        topicList = topicList.slice(0, num);
+                    }
+                    deferred.resolve(topicList);
                 }
             }, (jqXHR, textStatus, errorThrown) => {
                 console.warn('get topic lsit failed: ' + errorThrown);
@@ -146,7 +150,7 @@ const Api = (($) => {
             var deferred = $.Deferred();
             $.getJSON('/v1/web/page/aanner?position=topic-banner&platform=web&page=0&pageSize=20&src=web')
             .then(get_banner_response => {
-                if(get_banner_response.m !== 'success') {
+                if(get_banner_response.m !== 'ok') {
                     deferred.reject(new Error('get page banner error: ' + get_banner_response.m))
                 } else {
                     var banners = get_banner_response.d.banner;
