@@ -70,12 +70,72 @@ main {
                             color: #007fff;
                         }
                     }
-
-
                 }
             }
             .pin-content {
+                .pin-list {
+                    background: #f4f5f5;
+                    .item {
+                        margin-bottom: .5rem;
+                        background: #fff;
+                        .pin-header-row {
+                            display: flex;
+                            align-items: center;
+                            padding: 1rem 2rem 0 1.25rem;
+                            .user-link {
+                                .avatar {
+                                    flex: 0 0 auto;
+                                    width: 2.8125rem;
+                                    height: 2.8125rem;
+                                    border-radius: 50%;
+                                    position: relative;
+                                    background-position: 50%;
+                                    background-size: cover;
+                                    background-repeat: no-repeat;
+                                    background-color: #eee;
+                                }
+                            }
+                            .pin-header-content {
+                                margin-left: .75rem;
+                                .username {
+                                    font-size: .9375rem;
+                                    font-weight: 600;
+                                    color: #2e3135;
+                                }
+                                .meta-box {
+                                    display: flex;
+                                    margin: .2rem 0 0;
+                                    font-size: .8125rem;
+                                    color: #8a9aa9;
+                                    cursor: default;
+                                    .position {
+                                        max-width: 9rem;
+                                    }
+                                    .dot {
+                                        margin: 0 .375rem;
+                                    }
+                                    .time-box {
+                                        color: #8a9aa9;
+                                        .time {
 
+                                        }
+                                    }
+                                }
+                            }
+                            .pin-header-more {
+                                position: relative;
+                                margin: 0 -1px 0 auto;
+                                .more-button {
+                                    cursor: pointer;
+                                    .icon {
+
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -204,7 +204,22 @@ const Util = (($) => {
                 return "";
             }
          }
-        }
+        },
+        linkfilter(msg){
+            var url=msg;
+            var urlRegExp=new RegExp("((https|http|ftp|rtsp|mms|www)?:\/*\/*)[^\u4E00-\u9FA5]+" );
+            var newmsg="" ;
+            while (urlRegExp.exec(url)!= null){
+            var pipeiurl=urlRegExp.exec(url);
+            var newurl="<a href=" +pipeiurl[0]+ " target='_blank'>"+pipeiurl[0]+ "</a>";
+            var urllength=pipeiurl[0].length;
+            var start=url.indexOf(pipeiurl[0]);
+           newmsg+=url.substring(0,start)+newurl;
+           url=url.substring(start+urllength);
+           }
+            return msg=newmsg+url;
+       }
+
 
     };
     setTransitionEndSupport();
