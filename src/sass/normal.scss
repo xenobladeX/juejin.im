@@ -1,25 +1,19 @@
 @import 'bootstrap/bootstrap-reboot.scss';
 @import 'bootstrap/print.scss';
 @import './transitions.scss';
-
 // 变量
-
 $max-width: 60rem;
-
 // 通用样式
-
 html {
     font-size: 16px;
     color: #222;
     background-color: #f4f5f5;
 }
 
-
 ::selection {
     background-color: #b3d4fc;
     text-shadow: none;
 }
-
 
 ul {
     margin: 0;
@@ -31,7 +25,6 @@ li {
 }
 
 // 工具样式
-
 .center-block {
     display: block;
     margin-right: auto;
@@ -79,7 +72,7 @@ li {
 }
 
 .clearfix:before,
-.clearfix:after{
+.clearfix:after {
     content: " ";
     display: table;
 }
@@ -89,7 +82,7 @@ li {
 }
 
 .shadow {
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
 }
 
 .ellipsis {
@@ -98,8 +91,14 @@ li {
     text-overflow: ellipsis;
 }
 
-// 浏览器更新提示
+.clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
+// 浏览器更新提示
 .browserupgrade {
     margin: 0;
     padding: 1rem;
@@ -107,14 +106,12 @@ li {
 }
 
 // 自定义页面样式
-
 body {
     font-size: 1rem;
     line-height: 1.5;
-    background-color: #f7f7f7;
-    // 强制滚动条
-    overflow:scroll;
-    overflow-x:hidden;
+    background-color: #f7f7f7; // 强制滚动条
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 a {
@@ -123,7 +120,8 @@ a {
     color: #909090;
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
     color: #007fff;
     text-decoration: none;
 }
@@ -144,9 +142,6 @@ button {
     position: relative;
 }
 
-main {
-
-}
+main {}
 
 // 打印样式
-

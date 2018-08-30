@@ -116,9 +116,7 @@ main {
                                     }
                                     .time-box {
                                         color: #8a9aa9;
-                                        .time {
-
-                                        }
+                                        .time {}
                                     }
                                 }
                             }
@@ -127,11 +125,107 @@ main {
                                 margin: 0 -1px 0 auto;
                                 .more-button {
                                     cursor: pointer;
-                                    .icon {
-
+                                    .icon {}
+                                }
+                            }
+                        }
+                        .pin-content-row {
+                            position: relative;
+                            margin: .75rem 3rem 0 4.8375rem;
+                            margin-top: .15rem;
+                            .content-box {
+                                font-size: .9375rem;
+                                line-height: 1.5; // white-space: pre-wrap;
+                                color: #17181a;
+                                >.content {
+                                    .emoji {
+                                        width: 1.666rem;
+                                        height: 1.666rem;
+                                        vertical-align: sub;
                                     }
                                 }
-
+                                .limit-ctl-box {
+                                    font-size: .9375rem;
+                                    line-height: 1.5;
+                                    color: #17181a;
+                                    .limit-btn {
+                                        display: inline-block;
+                                        margin-top: .3rem;
+                                        color: #007fff;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                        .pin-image-row {
+                            margin-top: .24975rem;
+                            position: relative;
+                            margin: .75rem 3rem 0 4.8375rem;
+                            .image-box {
+                                display: flex;
+                                flex-wrap: wrap;
+                                max-width: 100%;
+                                &.col-4 {
+                                    .image {
+                                        width: calc((100% - 1rem * 3) / 4);
+                                        max-width: 6.8745rem;
+                                    }
+                                }
+                                .image {
+                                    margin-right: .25rem;
+                                    flex: 0 1 auto;
+                                    position: relative;
+                                    margin-top: .25rem;
+                                    background-position: 50%;
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                    cursor: zoom-in;
+                                    .ratio-holder {
+                                        padding-top: 100%;
+                                    }
+                                }
+                            }
+                        }
+                        .pin-link-row {
+                            position: relative;
+                            margin: .75rem 3rem 0 4.8375rem;
+                            .link-box {
+                                display: flex;
+                                align-items: center;
+                                padding: .62475rem .99975rem;
+                                max-width: 100%;
+                                max-height: 5.31225rem;
+                                background-color: #fff;
+                                border: 1px solid #ebebeb;
+                                box-sizing: border-box;
+                                .link-info-box {
+                                    display: flex;
+                                    flex: 1 1 auto;
+                                    flex-direction: column;
+                                    min-width: 0;
+                                    height: 4.062rem;
+                                    .link-title {
+                                        font-size: .9375rem;
+                                        font-weight: 500;
+                                        line-height: 1.5;
+                                        color: #000;
+                                    }
+                                    .link-domain {
+                                        margin-top: auto;
+                                        font-size: .87525rem;
+                                        color: #8a93a0;
+                                    }
+                                }
+                                .link-thumb {
+                                    flex: 0 0 auto;
+                                    margin-left: .99975rem;
+                                    width: 4.062rem;
+                                    height: 4.062rem;
+                                    background-position: 50%;
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                    border-radius: 2px;
+                                }
                             }
                         }
                     }
