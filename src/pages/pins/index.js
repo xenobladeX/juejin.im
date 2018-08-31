@@ -11,6 +11,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 // template
 import topic_list_template from './topic-list-template.html';
 import banner_list_template from './banner-list-template.html';
+import pin_list_template from './pin-list-template.html';
 
 // js
 import '../../components/collapse/collapseDropdown';
@@ -25,7 +26,8 @@ import Api from '../../components/api/api';
 
 $(document).ready(function () {
 
-    var data  = {
+    var data = {
+        pinList: [],
         topicList: [],
         bannerList: [],
     }
@@ -33,29 +35,9 @@ $(document).ready(function () {
     // template
     let topicListTemplate = $.templates(topic_list_template);
     let bannerListTemplate = $.templates(banner_list_template);
+    let pinListTemplate = $.templates(pin_list_template);
 
-    Api.getTopicList(6).done(topicList => {
-        $.observable(data.topicList).insert(topicList);
-        // render
-        var html = topicListTemplate.render(data);
-        $('.topic-section >.content').html(html);
-    });
-
-    Api.getPageBanner().done(bannerList => {
-        $.observable(data.bannerList).insert(bannerList);
-        // render
-        var html = bannerListTemplate.render(data);
-        console.log(html);
-        $('.slide-section').html(html);
-
-        // 滚动页
-        var owl = $('.slide-section .owl-carousel');
-        owl.owlCarousel({
-            items: 1,
-            loop: true,
-            dots: true,
-        });
-    })
+    pinListTemplate.link('#pin-content', data);
 
 
     // login Modal
@@ -76,5 +58,47 @@ $(document).ready(function () {
         $('#loginModal .panfish .blindfold').hide();
     });
 
+
+    Api.getTopicList(6).done(topicList => {
+        $.observable(data.topicList).insert(topicList);
+        // render
+        var html = topicListTemplate.render(data);
+        $('.topic-section >.content').html(html);
+    });
+
+    Api.getPageBanner().done(bannerList => {
+        $.observable(data.bannerList).insert(bannerList);
+        // render
+        var html = bannerListTemplate.render(data);
+        $('.slide-section').html(html);
+
+        // 滚动页
+        var owl = $('.slide-section .owl-carousel');
+        owl.owlCarousel({
+            items: 1,
+            loop: true,
+            dots: true,
+        });
+    });
+
+    $('.pin-content').dropload({
+        scrollAreas: [window],
+        num: 0,
+        down: {
+            callback: function (dropload) {
+                var before = data.pinList.length > 0 ? data.pinList[data.pinList.length - 1].createdAt : '';
+                Api.getPinList(before).done(pinList => {
+                    console.log(pinList);
+
+                    $.observable(data.pinList).insert(pinList);
+
+                    dropload.endByNum(data.pinList.length);
+                }).fail(err => {
+
+                    dropload.endByNum(data.pinList.length);
+                });
+            }
+        }
+    });
 
 });

@@ -169,14 +169,14 @@ const Api = (($) => {
                 if(get_pinList_response.m !== 'success') {
                     deferred.reject(new Error('get pin list error: ' + get_pinList_response.m))
                 } else {
-                    var pinList = get_pinList_response.d.banner;
+                    var pinList = get_pinList_response.d.list;
                     deferred.resolve($.isEmptyObject(pinList) ? [] : pinList);
                 }
             }, (jqXHR, textStatus, errorThrown) => {
                 console.warn('get pin list failed: ' + errorThrown);
                 deferred.reject(errorThrown);
             });
-            return deffer
+            return deferred;
         },
     }
 
