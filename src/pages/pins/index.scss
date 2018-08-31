@@ -165,6 +165,23 @@ main {
                                 display: flex;
                                 flex-wrap: wrap;
                                 max-width: 100%;
+                                &.col-1 {
+                                    .image {
+                                        width: 12.4995rem;
+                                    }
+                                }
+                                &.col-2 {
+                                    .image {
+                                        width: calc((100% - .25rem * 1) / 4);
+                                        max-width: 6.8745rem;
+                                    }
+                                }
+                                &.col-3 {
+                                    .image {
+                                        width: calc((100% - .25rem * 3) / 4);
+                                        max-width: 6.8745rem;
+                                    }
+                                }
                                 &.col-4 {
                                     .image {
                                         width: calc((100% - 1rem * 3) / 4);

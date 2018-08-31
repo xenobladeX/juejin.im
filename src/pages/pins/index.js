@@ -30,6 +30,18 @@ $(document).ready(function () {
         pinList: [],
         topicList: [],
         bannerList: [],
+    };
+
+    const entryHelper = {
+        timeago: Util.timeago,
+        position: Util.position,
+        imageCol: function(count) {
+            if(count >= 4) {
+                return 'col-' + 4;
+            } else {
+                return 'col-' + count;
+            }
+        },
     }
 
     // template
@@ -37,7 +49,13 @@ $(document).ready(function () {
     let bannerListTemplate = $.templates(banner_list_template);
     let pinListTemplate = $.templates(pin_list_template);
 
-    pinListTemplate.link('#pin-content', data);
+    pinListTemplate.link('.pin-content', data, entryHelper);
+
+    $.observe(data.pinList, (event, eventArg) => {
+        if (eventArg.change === 'insert') {
+            console.log(eventArg.items);
+        }
+    });
 
 
     // login Modal
@@ -88,11 +106,8 @@ $(document).ready(function () {
             callback: function (dropload) {
                 var before = data.pinList.length > 0 ? data.pinList[data.pinList.length - 1].createdAt : '';
                 Api.getPinList(before).done(pinList => {
-                    console.log(pinList);
-
                     $.observable(data.pinList).insert(pinList);
-
-                    dropload.endByNum(data.pinList.length);
+                    dropload.endByNum(0);
                 }).fail(err => {
 
                     dropload.endByNum(data.pinList.length);

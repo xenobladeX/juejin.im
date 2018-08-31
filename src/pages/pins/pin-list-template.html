@@ -1,15 +1,17 @@
 <ul class="pin-list">
-    {{for pinList}}
+    {^{for pinList}}
     <li class="item shadow">
         <div class="pin-header-row">
             <a href="#" class="user-link">
-                <div class="avatar" style="background-image: url('{{:avatarLarge}}');"></div>
+                <div class="avatar" style="background-image: url('{{:user.avatarLarge}}');"></div>
             </a>
             <div class="pin-header-content">
                 <a href="#" class="username">{{:user.username}}</a>
                 <div class="meta-box">
-                    <div class="position ellipsis">不是美工的那种设计师 @ 知名教育机构</div>
+                    {{if ~position(user.jobTitle, user.company)}}
+                    <div class="position ellipsis">{{: ~position(user.jobTitle, user.company)}}</div>
                     <div class="dot">·</div>
+                    {{/if}}
                     <a href="#" class="time-box">
                         <time class="time">23分钟</time>
                     </a>
@@ -44,34 +46,33 @@
                 </div>
             </div>
         </div>
+        {{if pictures.length > 0}}
         <div class="pin-image-row">
-            <div class="image-box col-4">
-                <div class="image" style="background-image: url('https://user-gold-cdn.xitu.io/2018/8/30/16589098e7efa0c7?imageView2/1/w/260/h/260/q/85/format/jpg/interlace/1');">
+            <div class="image-box {{:~imageCol(pictures.length)}}">
+                {{for pictures}}
+                <div class="image" style="background-image: url('{{:}}');">
                     <div class="ratio-holder"></div>
                 </div>
-                <div class="image" style="background-image: url('https://user-gold-cdn.xitu.io/2018/8/30/165890b432775e63?imageView2/1/w/260/h/260/q/85/format/jpg/interlace/1');">
-                    <div class="ratio-holder"></div>
-                </div>
-                <div class="image" style="background-image: url('https://user-gold-cdn.xitu.io/2018/8/30/165890bc3765fa2e?imageView2/1/w/260/h/260/q/85/format/jpg/interlace/1');">
-                    <div class="ratio-holder"></div>
-                </div>
-                <div class="image" style="background-image: url('https://user-gold-cdn.xitu.io/2018/8/30/165890c25e606c4e?imageView2/1/w/260/h/260/q/85/format/jpg/interlace/1');">
-                    <div class="ratio-holder"></div>
-                </div>
+                {{/for}}
             </div>
         </div>
+        {{/if}}
+        {{if url != ''}}
         <div class="pin-link-row">
-            <a href="#" class="link-box">
+            <a href="{{:url}}" class="link-box">
                 <div class="link-info-box">
-                    <div class="link-title clamp">我为什么不看好 PHP 的发展？</div>
-                    <div class="link-domain ellipsis">www.v2ex.com</div>
+                    <div class="link-title clamp">{{:urlTitle}}</div>
+                    <div class="link-domain ellipsis">{{:url}}</div>
                 </div>
-                <div class="link-thumb" class="link-thumb" style="background-image: url('https://mirror-gold-cdn.xitu.io/165881dede5fb18dab5');"></div>
+                <div class="link-thumb" class="link-thumb" style="background-image: url('{{:urlPic}}');"></div>
             </a>
         </div>
+        {{/if}}
+        {{if topic}}
         <div class="pin-topic-row">
-            <a href="#" class="topic-title">今天学到了</a>
+            <a href="{{: 'https://juejin.im/topic/' + topic.objectId}}" class="topic-title">{{:topic.title}}</a>
         </div>
+        {{/if}}
         <div class="pin-action-row">
             <div class="action-box">
                 <div class="like-action action">
