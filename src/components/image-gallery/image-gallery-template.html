@@ -1,0 +1,32 @@
+<div class="image-gallery" style="display: none;">
+        <div class="gallery-action-bar">
+            <div class="action-item retract">
+                <img src="../../images/icon-retract.svg" alt="retract">
+                <span class="action-name">收起</span>
+            </div>
+            <div class="action-item modal">
+                <img src="../../images/icon-zoomOut.svg" alt="zoomOut">
+                <span class="action-name">查看大图</span>
+            </div>
+            <div class="action-item left">
+                <img src="../../images/icon-rotateLeft.svg" alt="rotateLeft">
+                <span class="action-name">向左旋转</span>
+            </div>
+            <div class="action-item right">
+                <img src="../../images/icon-rotateRight.svg" alt="rotateRight">
+                <span class="action-name">像右旋转</span>
+            </div>
+        </div>
+        <div class="gallery-body">
+            {{for pictures}}
+            <img src="'{{:}}'" alt="" class="gallery-image">
+            {{/for}}
+        </div>
+        <div class="nav-list">
+            {{for pictures}}
+            <div class="nav-item">
+                <div class="thumb" style="background-image: url('{{:}}');"></div>
+            </div>
+            {{/for}}
+        </div>
+    </div>

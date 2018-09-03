@@ -219,10 +219,41 @@ const Util = (($) => {
             }
             return msg = newmsg + url;
         },
-        isOverflown(element) {
+        isOverflown(ele) {
+            var element = ele[0]
             return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+        },
+        parseUrl(url) {
+            var a = document.createElement('a');
+            a.href = url;
+            return a;
+        },
+        convertImage(url, count) {
+            var image = {url: url};
+            var parsedUrl = Util.parseUrl(url);
+            var query = parsedUrl.search.substring(1);
+            var vars = query.split('&');
+            var thumbWidth, thumbHeight;
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                var key = decodeURIComponent(pair[0]);
+                var value = decodeURIComponent(pair[1]);
+                image[key] = value;
+            }
+            if(image.h / image.w > 1.5) {
+                image.long = true;
+            }
+            if(count == 1) {
+                thumbWidth = image.h > image.w ? 316 : 460;
+                thumbHeight = image.w > image.h ? 316 : 460;
+            } else {
+                thumbHeight = 260;
+                thumbWidth = 260;
+            }
+            image.thumbUrl = `${parsedUrl.protocol}//${parsedUrl.host}${parsedUrl.pathname}?imageView2/1/w/${thumbWidth}/h/${thumbHeight}/q/85/format/jpg/interlace/1`;
+            console.log(image.thumbUrl);
+            return image;
         }
-
 
     };
     setTransitionEndSupport();

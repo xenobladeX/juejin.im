@@ -37,10 +37,12 @@
         <div class="pin-image-row">
             <div class="image-box {{:~imageCol(pictures.length)}}">
                 {{for pictures}}
-                <div class="image" style="background-image: url('{{:}}');">
+                <div class="image" style="background-image: url('{{:~convertImage(#data).thumbUrl}}');">
                     <div class="ratio-holder"></div>
                 </div>
                 {{/for}}
+            </div>
+            <div class="pin-gallery" style="display: none;">
             </div>
         </div>
         {{/if}}
@@ -49,9 +51,13 @@
             <a href="{{:url}}" class="link-box">
                 <div class="link-info-box">
                     <div class="link-title clamp">{{:urlTitle}}</div>
-                    <div class="link-domain ellipsis">{{:url}}</div>
+                    <div class="link-domain ellipsis">{{:~parseUrl(url).host}}</div>
                 </div>
-                <div class="link-thumb" class="link-thumb" style="background-image: url('{{:urlPic}}');"></div>
+                {{if urlPic != ''}}
+                <div class="link-thumb" style="background-image: url('{{:urlPic}}');"></div>
+                {{else}}
+                <div class="link-thumb blank"></div>
+                {{/if}}
             </a>
         </div>
         {{/if}}
@@ -65,13 +71,13 @@
                 <div class="like-action action">
                     <div class="action-title-box">
                         <img src="../../images/icon-like2.svg" alt="like" class="icon">
-                        <span class="action-title">{{:likedCount}}</span>
+                        <span class="action-title">{{: likedCount===0 ? '赞' : likedCount}}</span>
                     </div>
                 </div>
                 <div class="comment-action action">
                     <div class="action-title-box">
-                            <img src="../../images/icon-comment2.svg" alt="comment" class="icon">
-                            <span class="action-title">{{:commentCount}}</span>
+                        <img src="../../images/icon-comment2.svg" alt="comment" class="icon">
+                        <span class="action-title">{{: commentCount===0 ? '评论' : commentCount}}</span>
                     </div>
                 </div>
                 <div class="share-action action">

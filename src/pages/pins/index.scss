@@ -245,6 +245,11 @@ main {
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     border-radius: 2px;
+                                    &.blank {
+                                        background-image: url('../../images/icon-link.svg');
+                                        background-repeat: no-repeat;
+                                        background-size: cover;
+                                    }
                                 }
                             }
                         }

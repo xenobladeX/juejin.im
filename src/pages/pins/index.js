@@ -42,6 +42,8 @@ $(document).ready(function () {
                 return 'col-' + count;
             }
         },
+        parseUrl: Util.parseUrl,
+        convertImage: Util.convertImage,
         textHandle: function(text) {
             var newText = text.replace(/[\n\r]/g, '<br/>');
 
@@ -52,6 +54,20 @@ $(document).ready(function () {
 
             return newText;
         }
+    }
+
+    var showtextLimit = (contentBoxs) => {
+        $(contentBoxs).each((index, contentBox) => {
+            var $contentBox = $(contentBox);
+            var limitBox = $contentBox.find('.limit-ctl-box');
+            var content = $contentBox.find('.content');
+            if(Util.isOverflown(content)) {
+                limitBox.show();
+
+            } else {
+                limitBox.hide();
+            }
+        });
     }
 
     // template
@@ -66,45 +82,26 @@ $(document).ready(function () {
             $(eventArg.items).each((index, element) => {
                 // extend button
                 var contentBox = $(`#${element.objectId} .pin-content-row`);
-                var limitBox = contentBox.find('.limit-ctl-box');
-                var limitButton = limitBox.find('.limit-btn');
+                showtextLimit(contentBox);
+                var limitButton = contentBox.find('.limit-btn');
                 var content = contentBox.find('.content');
-                if(Util.isOverflown($(`#${element.objectId} .content`)[0])) {
-                    limitBox.show();
-                    limitButton.click(() => {
-                        content.toggleClass('clamp');
-                        if(content.hasClass('clamp')) {
-                            limitButton.text('展开');
-                        } else {
-                            limitButton.text('收起');
-                        }
-                    })
-                } else {
-                    limitBox.hide();
-                }
+                limitButton.click(() => {
+                    content.toggleClass('clamp');
+                    if(content.hasClass('clamp')) {
+                        limitButton.text('展开');
+                    } else {
+                        limitButton.text('收起');
+                    }
+                });
+
+                // picture gallery
+
+
+                // picture modal
+
             });
         }
     });
-
-
-    // login Modal
-    $('#loginModal .input-group input[type="text"]').focus(() => {
-        $('#loginModal .panfish .normal').hide();
-        $('#loginModal .panfish .greeting').show();
-        $('#loginModal .panfish .blindfold').hide();
-    });
-    $('#loginModal .input-group input[type="password"]').focus(() => {
-        $('#loginModal .panfish .normal').hide();
-        $('#loginModal .panfish .greeting').hide();
-        $('#loginModal .panfish .blindfold').show();
-    });
-
-    $('#loginModal .input-group input').blur(() => {
-        $('#loginModal .panfish .normal').show();
-        $('#loginModal .panfish .greeting').hide();
-        $('#loginModal .panfish .blindfold').hide();
-    });
-
 
     Api.getTopicList(6).done(topicList => {
         $.observable(data.topicList).insert(topicList);
@@ -128,6 +125,25 @@ $(document).ready(function () {
         });
     });
 
+    // login Modal
+    $('#loginModal .input-group input[type="text"]').focus(() => {
+        $('#loginModal .panfish .normal').hide();
+        $('#loginModal .panfish .greeting').show();
+        $('#loginModal .panfish .blindfold').hide();
+    });
+    $('#loginModal .input-group input[type="password"]').focus(() => {
+        $('#loginModal .panfish .normal').hide();
+        $('#loginModal .panfish .greeting').hide();
+        $('#loginModal .panfish .blindfold').show();
+    });
+
+    $('#loginModal .input-group input').blur(() => {
+        $('#loginModal .panfish .normal').show();
+        $('#loginModal .panfish .greeting').hide();
+        $('#loginModal .panfish .blindfold').hide();
+    });
+
+    // dropload
     $('.pin-content').dropload({
         scrollAreas: [window],
         num: 0,
@@ -143,6 +159,10 @@ $(document).ready(function () {
                 });
             }
         }
+    });
+
+    $( window ).resize((e) => {
+        showtextLimit($('.pin-content-row'));
     });
 
 });
