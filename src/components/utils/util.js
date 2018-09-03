@@ -140,12 +140,12 @@ const Util = (($) => {
 
         transition(element, num) {
             element.css({
-                '-webkit-transition':'all '+num+'ms',
-                'transition':'all '+num+'ms'
+                '-webkit-transition': 'all ' + num + 'ms',
+                'transition': 'all ' + num + 'ms'
             });
         },
 
-        timeago(dateTimeStamp){   //dateTimeStamp是一个时间毫秒，注意时间戳是秒的形式，在这个毫秒的基础上除以1000，就是十位数的时间戳。13位数的都是时间毫秒。
+        timeago(dateTimeStamp) {   //dateTimeStamp是一个时间毫秒，注意时间戳是秒的形式，在这个毫秒的基础上除以1000，就是十位数的时间戳。13位数的都是时间毫秒。
             var minute = 60;      //把分，时，天，周，半个月，一个月用毫秒表示
             var hour = minute * 60;
             var day = hour * 24;
@@ -155,28 +155,28 @@ const Util = (($) => {
             var now = Math.round(new Date() / 1000);   //获取当前时间秒
             var diffValue = now - dateTimeStamp;//时间差
 
-            if(diffValue < 0){
+            if (diffValue < 0) {
                 return "刚刚";
             }
             var result = undefined;
-            var minC = diffValue/minute;  //计算时间差的分，时，天，周，月
-            var hourC = diffValue/hour;
-            var dayC = diffValue/day;
-            var weekC = diffValue/week;
-            var monthC = diffValue/month;
-            if(monthC >= 1 && monthC <= 3){
+            var minC = diffValue / minute;  //计算时间差的分，时，天，周，月
+            var hourC = diffValue / hour;
+            var dayC = diffValue / day;
+            var weekC = diffValue / week;
+            var monthC = diffValue / month;
+            if (monthC >= 1 && monthC <= 3) {
                 result = " " + parseInt(monthC) + "月前"
-            }else if(weekC >= 1 && weekC <= 3){
+            } else if (weekC >= 1 && weekC <= 3) {
                 result = " " + parseInt(weekC) + "周前"
-            }else if(dayC >= 1 && dayC <= 6){
+            } else if (dayC >= 1 && dayC <= 6) {
                 result = " " + parseInt(dayC) + "天前"
-            }else if(hourC >= 1 && hourC <= 23){
+            } else if (hourC >= 1 && hourC <= 23) {
                 result = " " + parseInt(hourC) + "小时前"
-            }else if(minC >= 1 && minC <= 59){
-                result =" " + parseInt(minC) + "分钟前"
-            }else if(diffValue >= 0 && diffValue <= minute){
+            } else if (minC >= 1 && minC <= 59) {
+                result = " " + parseInt(minC) + "分钟前"
+            } else if (diffValue >= 0 && diffValue <= minute) {
                 result = "刚刚"
-            }else {
+            } else {
                 var datetime = new Date();
                 datetime.setTime(dateTimeStamp);
                 var Nyear = datetime.getFullYear();
@@ -191,34 +191,37 @@ const Util = (($) => {
         },
 
         position(jobTitle, company) {
-         if (jobTitle && jobTitle != "") {
-            if (company && company != "") {
-             return jobTitle + " @ " + company;
-            } else {
-                return jobTitle;
-            }
-         } else {
             if (jobTitle && jobTitle != "") {
-                return company;
+                if (company && company != "") {
+                    return jobTitle + " @ " + company;
+                } else {
+                    return jobTitle;
+                }
             } else {
-                return "";
+                if (jobTitle && jobTitle != "") {
+                    return company;
+                } else {
+                    return "";
+                }
             }
-         }
         },
-        linkfilter(msg){
-            var url=msg;
-            var urlRegExp= /^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i;
-            var newmsg="" ;
-            while (urlRegExp.exec(url)!= null){
-            var pipeiurl=urlRegExp.exec(url);
-            var newurl="<a href=" +pipeiurl[0]+ " target='_blank'>"+pipeiurl[0]+ "</a>";
-            var urllength=pipeiurl[0].length;
-            var start=url.indexOf(pipeiurl[0]);
-           newmsg+=url.substring(0,start)+newurl;
-           url=url.substring(start+urllength);
-           }
-            return msg=newmsg+url;
-       }
+        linkfilter(msg) {
+            var url = msg;
+            var urlRegExp = /^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i;
+            var newmsg = "";
+            while (urlRegExp.exec(url) != null) {
+                var pipeiurl = urlRegExp.exec(url);
+                var newurl = "<a href=" + pipeiurl[0] + " target='_blank'>" + pipeiurl[0] + "</a>";
+                var urllength = pipeiurl[0].length;
+                var start = url.indexOf(pipeiurl[0]);
+                newmsg += url.substring(0, start) + newurl;
+                url = url.substring(start + urllength);
+            }
+            return msg = newmsg + url;
+        },
+        isOverflown(element) {
+            return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+        }
 
 
     };

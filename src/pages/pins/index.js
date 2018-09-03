@@ -42,6 +42,16 @@ $(document).ready(function () {
                 return 'col-' + count;
             }
         },
+        textHandle: function(text) {
+            var newText = text.replace(/[\n\r]/g, '<br/>');
+
+
+
+
+
+
+            return newText;
+        }
     }
 
     // template
@@ -53,7 +63,26 @@ $(document).ready(function () {
 
     $.observe(data.pinList, (event, eventArg) => {
         if (eventArg.change === 'insert') {
-            console.log(eventArg.items);
+            $(eventArg.items).each((index, element) => {
+                // extend button
+                var contentBox = $(`#${element.objectId} .pin-content-row`);
+                var limitBox = contentBox.find('.limit-ctl-box');
+                var limitButton = limitBox.find('.limit-btn');
+                var content = contentBox.find('.content');
+                if(Util.isOverflown($(`#${element.objectId} .content`)[0])) {
+                    limitBox.show();
+                    limitButton.click(() => {
+                        content.toggleClass('clamp');
+                        if(content.hasClass('clamp')) {
+                            limitButton.text('展开');
+                        } else {
+                            limitButton.text('收起');
+                        }
+                    })
+                } else {
+                    limitBox.hide();
+                }
+            });
         }
     });
 
@@ -107,7 +136,7 @@ $(document).ready(function () {
                 var before = data.pinList.length > 0 ? data.pinList[data.pinList.length - 1].createdAt : '';
                 Api.getPinList(before).done(pinList => {
                     $.observable(data.pinList).insert(pinList);
-                    dropload.endByNum(0);
+                    dropload.endByNum(data.pinList.length);
                 }).fail(err => {
 
                     dropload.endByNum(data.pinList.length);

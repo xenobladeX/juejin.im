@@ -1,6 +1,6 @@
 <ul class="pin-list">
     {^{for pinList}}
-    <li class="item shadow">
+    <li id="{{:objectId}}" class="item shadow">
         <div class="pin-header-row">
             <a href="#" class="user-link">
                 <div class="avatar" style="background-image: url('{{:user.avatarLarge}}');"></div>
@@ -26,20 +26,7 @@
         <div class="pin-content-row">
             <div class="content-box">
                 <span class="content clamp">
-                    <!-- IE 和 Chrome 的日常：黑魔法，来自Talalios
-                    <img class="emoji" draggable="false" alt="🐊" src="https://gold-cdn.xitu.io/asset/twemoji/2.6.0/svg/1f40a.svg">
-                    <br/>
-                    <br/> Chrome：我性能更好、速度更快、更受欢迎。每个用户都很喜欢我
-                    <br/> IE：了不起，但这个你绝对做不到 …
-                    <br/> Chrome：这是什么黑魔法？
-                    <br/> Chrome：这是什么黑魔法？
-                    <br/> Chrome：这是什么黑魔法？
-                    <br/> Chrome：这是什么黑魔法？
-                    <br/> Chrome：这是什么黑魔法？
-                    <br/> Chrome：这是什么黑魔法？
-                    <br/> Chrome：这是什么黑魔法？
-                    <br/> Chrome：这是什么黑魔法？ -->
-                    {{:content}}
+                    {{: ~textHandle(content)}}
                 </span>
                 <div class="limit-ctl-box">
                     <div class="limit-btn">展开</div>

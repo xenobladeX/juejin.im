@@ -65,6 +65,12 @@ const webpackConfigDev = {
                 changeOrigin: true,
                 secure: false
             },
+            '/pins': {
+                target: 'http://127.0.0.1:8089/',
+                pathRewrite: {'^/pins' : '/pins.html'},
+                changeOrigin: true,
+                secure: false,
+            }
 
 
         }
