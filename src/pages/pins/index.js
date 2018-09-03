@@ -43,7 +43,7 @@ $(document).ready(function () {
             }
         },
         parseUrl: Util.parseUrl,
-        convertImage: Util.convertImage,
+        convertImages: Util.convertImages,
         textHandle: function(text) {
             var newText = text.replace(/[\n\r]/g, '<br/>');
 

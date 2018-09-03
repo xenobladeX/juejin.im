@@ -36,9 +36,14 @@
         {{if pictures.length > 0}}
         <div class="pin-image-row">
             <div class="image-box {{:~imageCol(pictures.length)}}">
-                {{for pictures}}
-                <div class="image" style="background-image: url('{{:~convertImage(#data).thumbUrl}}');">
-                    <div class="ratio-holder"></div>
+                {{for ~convertImages(pictures)}}
+                <div class="image" style="background-image: url('{{:#data.thumbUrl}}');">
+                    <div class="ratio-holder" style="padding-top: {{:#data.thumbHeight/#data.thumbWidth * 100 + '%'}};"></div>
+                    {{if #data.gif}}
+                    <div class="label">GIF</div>
+                    {{else #data.long}}
+                    <div class="label">长图</div>
+                    {{/if}}
                 </div>
                 {{/for}}
             </div>
